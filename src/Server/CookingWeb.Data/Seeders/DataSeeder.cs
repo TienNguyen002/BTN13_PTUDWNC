@@ -27,9 +27,12 @@ namespace CookingWeb.Data.Seeders
             var categories = AddCategories();
             var chefs = AddChefs();
             var demands = AddDemands();
+            var agetolearns = AddAgeToLearns();
+            var prices = AddPrices();
+            var numberofsessions = AddNumberOfSessions();
             var students = AddStudents();
 
-            var courses = AddCourses(demands, chefs, students);
+            var courses = AddCourses(demands, agetolearns, prices, numberofsessions, chefs, students);
             var recipes = AddRecipes(courses, authors);
             var posts = AddPosts(categories, authors);
         }
@@ -46,7 +49,15 @@ namespace CookingWeb.Data.Seeders
                     JoinedDate = new DateTime(2017, 07, 18)
                 },
             };
-            _dbContext.Authors.AddRange(authors);
+            var authorAdd = new List<Author>();
+            foreach(var author in authors)
+            {
+                if(!_dbContext.Authors.Any(a => a.UrlSlug == author.UrlSlug))
+                {
+                    authorAdd.Add(author);
+                }
+            }
+            _dbContext.AddRange(authorAdd);
             _dbContext.SaveChanges();
             return authors;
         }
@@ -168,7 +179,15 @@ namespace CookingWeb.Data.Seeders
                     ShowOnMenu = true,
                 }
             };
-            _dbContext.AddRange(categories);
+            var categoryAdd = new List<Category>();
+            foreach(var category in categories)
+            {
+                if(!_dbContext.Categories.Any(c => c.UrlSlug.Equals(category.UrlSlug)))
+                {
+                    categoryAdd.Add(category);
+                }
+            }
+            _dbContext.AddRange(categoryAdd);
             _dbContext.SaveChanges();
             return categories;
         }
@@ -185,7 +204,15 @@ namespace CookingWeb.Data.Seeders
                     UrlSlug = "huynh-cong-tao",
                 }
             };
-            _dbContext.AddRange(chefs);
+            var chefAdd = new List<Chef>();
+            foreach(var chef in chefs)
+            {
+                if(!_dbContext.Chefs.Any(c => c.UrlSlug.Equals(chef.UrlSlug)))
+                {
+                    chefAdd.Add(chef);
+                }
+            }
+            _dbContext.AddRange(chefAdd);
             _dbContext.SaveChanges();
             return chefs;
         }
@@ -240,9 +267,83 @@ namespace CookingWeb.Data.Seeders
                     UrlSlug = "hoc-theo-yeu-cau"
                 }
             };
-            _dbContext.AddRange(demands);
+            var demandAdd = new List<Demand>();
+            foreach(var demand in demands)
+            {
+                if(!_dbContext.Demands.Any(d => d.UrlSlug.Equals(demand.UrlSlug)))
+                {
+                    demandAdd.Add(demand);
+                }
+            }
+            _dbContext.AddRange(demandAdd);
             _dbContext.SaveChanges();
             return demands;
+        }
+
+        private IList<AgeToLearn> AddAgeToLearns()
+        {
+            var ageToLearns = new List<AgeToLearn>()
+            {
+                new()
+                {
+                    Name = "Dưới 15 tuổi"
+                },
+                new()
+                {
+                    Name = "15 - 35 tuổi"
+                },
+                new()
+                {
+                    Name = "Trên 35 tuổi"
+                },
+            };
+            _dbContext.AddRange(ageToLearns);
+            _dbContext.SaveChanges();
+            return ageToLearns;
+        }
+
+        private IList<Price> AddPrices()
+        {
+            var prices = new List<Price>()
+            {
+                new()
+                {
+                    Name = "Dưới 3 triệu"
+                },
+                new()
+                {
+                    Name = "3 - 7 triệu"
+                },
+                new()
+                {
+                    Name = "Trên 7 triệu"
+                },
+            };
+            _dbContext.AddRange(prices);
+            _dbContext.SaveChanges();
+            return prices;
+        }
+
+        private IList<NumberOfSessions> AddNumberOfSessions()
+        {
+            var numberofsessions = new List<NumberOfSessions>()
+            {
+                new()
+                {
+                    Name = "Dưới 10 buổi"
+                },
+                new()
+                {
+                    Name = "10 - 30 buổi"
+                },
+                new()
+                {
+                    Name = "Trên 30 buổi"
+                },
+            };
+            _dbContext.AddRange(numberofsessions);
+            _dbContext.SaveChanges();
+            return numberofsessions;
         }
 
         private IList<Student> AddStudents()
@@ -265,6 +366,9 @@ namespace CookingWeb.Data.Seeders
 
         private IList<Course> AddCourses(
             IList<Demand> demands,
+            IList<AgeToLearn> ageToLearns,
+            IList<Price> prices,
+            IList<NumberOfSessions> numberOfSessions,
             IList<Chef> chefs,
             IList<Student> students)
         {
@@ -279,9 +383,10 @@ namespace CookingWeb.Data.Seeders
                     CreateDate = new DateTime(2017, 1, 1),
                     UpdateDate = null,
                     Demand = demands[1],
-                    AgeToLearn = "Trên 18 tuổi",
-                    Price = "3 - 7 triệu",
-                    NumberOfSessions = "10 - 30 buổi",
+                    AgeToLearn = ageToLearns[1],
+                    Price = prices[1],
+                    NumberOfSessions = numberOfSessions[1],
+                    Published = true,
                     Chefs = new List<Chef>()
                     {
                         chefs[0]
@@ -292,7 +397,15 @@ namespace CookingWeb.Data.Seeders
                     },
                 }
             };
-            _dbContext.AddRange(courses);
+            var courseAdd = new List<Course>();
+            foreach(var course in courses)
+            {
+                if(!_dbContext.Courses.Any(c => c.UrlSlug.Equals(course.UrlSlug)))
+                {
+                    courseAdd.Add(course);
+                }
+            }
+            _dbContext.AddRange(courseAdd);
             _dbContext.SaveChanges();
             return courses;
         }
@@ -320,7 +433,15 @@ namespace CookingWeb.Data.Seeders
                     ViewCount = 1,
                 }
             };
-            _dbContext.AddRange(recipes);
+            var recipeAdd = new List<Recipe>();
+            foreach (var recipe in recipes)
+            {
+                if(!_dbContext.Recipes.Any(r => r.UrlSlug.Equals(recipe.UrlSlug)))
+                {
+                    recipeAdd.Add(recipe);
+                }
+            }
+            _dbContext.AddRange(recipeAdd);
             _dbContext.SaveChanges();
             return recipes;
         }
@@ -345,7 +466,15 @@ namespace CookingWeb.Data.Seeders
                     Category = categories[0],
                 }
             };
-            _dbContext.AddRange(posts);
+            var postAdd = new List<Post>();
+            foreach(var post in posts)
+            {
+                if(!_dbContext.Posts.Any(p => p.UrlSlug.Equals(post.UrlSlug)))
+                {
+                    postAdd.Add(post);
+                }
+            }
+            _dbContext.AddRange(postAdd);
             _dbContext.SaveChanges();
             return posts;
         }
