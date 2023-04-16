@@ -4,6 +4,8 @@ using CookingWeb.Data.Contexts;
 using CookingWeb.Services.Apps;
 using CookingWeb.Services.Media;
 using CookingWeb.Services.Timing;
+using CookingWeb.Data.Seeders;
+using CookingWeb.Services.Apps.Categories;
 
 namespace TatBlog.WebApi.Extensions
 {
@@ -20,6 +22,8 @@ namespace TatBlog.WebApi.Extensions
 
             builder.Services.AddScoped<ITimeProvider, LocalTimeProvider>();
             builder.Services.AddScoped<IMediaManager, LocalFileSystemMediaManager>();
+            builder.Services.AddScoped<IDataSeeder, DataSeeder>();
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             return builder;
         }
@@ -64,6 +68,24 @@ namespace TatBlog.WebApi.Extensions
 
             app.UseCors("CookingWebApp");
 
+            return app;
+        }
+
+        public static IApplicationBuilder UseDataSeeder(this IApplicationBuilder app)
+        {
+            using var scope = app.ApplicationServices.CreateScope();
+            try
+            {
+                scope.ServiceProvider
+                  .GetRequiredService<IDataSeeder>()
+                  .Initialize();
+            }
+            catch (Exception ex)
+            {
+                scope.ServiceProvider
+                    .GetRequiredService<ILogger<Program>>()
+                    .LogError(ex, "Could not insert data into database");
+            }
             return app;
         }
     }

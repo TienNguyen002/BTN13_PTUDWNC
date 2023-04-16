@@ -19,6 +19,7 @@ var app = builder.Build();
 {
     app.SetupRequestPipeline();
     app.MapCategoryEndpoints();
+    app.UseDataSeeder();
     app.Run();
 }
 
