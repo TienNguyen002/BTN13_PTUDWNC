@@ -15,7 +15,6 @@ namespace CookingWeb.Core.Entities
         public string ImageUrl { get; set; }
         public DateTime JoinedDate { get; set; }
         public string UrlSlug { get; set; }
-        public int CourseId { get; set; }
         public IList<Course> Courses { get; set; }
     }
 }

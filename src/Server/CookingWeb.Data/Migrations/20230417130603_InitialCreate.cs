@@ -12,19 +12,6 @@ namespace CookingWeb.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AgeToLearns",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AgeToLearns", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Authors",
                 columns: table => new
                 {
@@ -68,8 +55,7 @@ namespace CookingWeb.Data.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     JoinedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UrlSlug = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CourseId = table.Column<int>(type: "int", nullable: false)
+                    UrlSlug = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -125,9 +111,9 @@ namespace CookingWeb.Data.Migrations
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Mobile = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UrlSlug = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RegisterDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CourseId = table.Column<int>(type: "int", nullable: false)
+                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -184,23 +170,14 @@ namespace CookingWeb.Data.Migrations
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DemandId = table.Column<int>(type: "int", nullable: false),
-                    AgeToLearnId = table.Column<int>(type: "int", nullable: false),
                     PriceId = table.Column<int>(type: "int", nullable: false),
                     NumberOfSessionsId = table.Column<int>(type: "int", nullable: false),
                     Published = table.Column<bool>(type: "bit", nullable: false),
-                    RegisterCount = table.Column<int>(type: "int", nullable: false),
-                    ChefId = table.Column<int>(type: "int", nullable: false),
-                    StudentId = table.Column<int>(type: "int", nullable: false)
+                    RegisterCount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Courses", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Courses_AgeToLearns_AgeToLearnId",
-                        column: x => x.AgeToLearnId,
-                        principalTable: "AgeToLearns",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Courses_Demands_DemandId",
                         column: x => x.DemandId,
@@ -313,11 +290,6 @@ namespace CookingWeb.Data.Migrations
                 column: "CoursesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Courses_AgeToLearnId",
-                table: "Courses",
-                column: "AgeToLearnId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Courses_DemandId",
                 table: "Courses",
                 column: "DemandId");
@@ -387,9 +359,6 @@ namespace CookingWeb.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Courses");
-
-            migrationBuilder.DropTable(
-                name: "AgeToLearns");
 
             migrationBuilder.DropTable(
                 name: "Demands");

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CookingWeb.Data.Migrations
 {
     [DbContext(typeof(WebDbContext))]
-    [Migration("20230416165049_InitialCreate")]
+    [Migration("20230417130603_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -38,22 +38,6 @@ namespace CookingWeb.Data.Migrations
                     b.HasIndex("CoursesId");
 
                     b.ToTable("ChefCourse");
-                });
-
-            modelBuilder.Entity("CookingWeb.Core.Entities.AgeToLearn", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AgeToLearns");
                 });
 
             modelBuilder.Entity("CookingWeb.Core.Entities.Author", b =>
@@ -120,9 +104,6 @@ namespace CookingWeb.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -151,12 +132,6 @@ namespace CookingWeb.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AgeToLearnId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ChefId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
@@ -184,9 +159,6 @@ namespace CookingWeb.Data.Migrations
                     b.Property<string>("ShortDescription")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
@@ -197,8 +169,6 @@ namespace CookingWeb.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AgeToLearnId");
 
                     b.HasIndex("DemandId");
 
@@ -380,9 +350,6 @@ namespace CookingWeb.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
@@ -397,6 +364,9 @@ namespace CookingWeb.Data.Migrations
 
                     b.Property<DateTime>("RegisterDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("UrlSlug")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -435,12 +405,6 @@ namespace CookingWeb.Data.Migrations
 
             modelBuilder.Entity("CookingWeb.Core.Entities.Course", b =>
                 {
-                    b.HasOne("CookingWeb.Core.Entities.AgeToLearn", "AgeToLearn")
-                        .WithMany("Courses")
-                        .HasForeignKey("AgeToLearnId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("CookingWeb.Core.Entities.Demand", "Demand")
                         .WithMany("Courses")
                         .HasForeignKey("DemandId")
@@ -458,8 +422,6 @@ namespace CookingWeb.Data.Migrations
                         .HasForeignKey("PriceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("AgeToLearn");
 
                     b.Navigation("Demand");
 
@@ -519,11 +481,6 @@ namespace CookingWeb.Data.Migrations
                         .HasForeignKey("StudentsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("CookingWeb.Core.Entities.AgeToLearn", b =>
-                {
-                    b.Navigation("Courses");
                 });
 
             modelBuilder.Entity("CookingWeb.Core.Entities.Author", b =>

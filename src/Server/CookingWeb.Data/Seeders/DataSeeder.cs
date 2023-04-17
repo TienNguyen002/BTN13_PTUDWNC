@@ -27,12 +27,11 @@ namespace CookingWeb.Data.Seeders
             var categories = AddCategories();
             var chefs = AddChefs();
             var demands = AddDemands();
-            var agetolearns = AddAgeToLearns();
             var prices = AddPrices();
             var numberofsessions = AddNumberOfSessions();
-            var students = AddStudents();
 
-            var courses = AddCourses(demands, agetolearns, prices, numberofsessions, chefs, students);
+            var courses = AddCourses(demands, prices, numberofsessions, chefs);
+            var students = AddStudents(courses);
             var recipes = AddRecipes(courses, authors);
             var posts = AddPosts(categories, authors);
         }
@@ -280,28 +279,6 @@ namespace CookingWeb.Data.Seeders
             return demands;
         }
 
-        private IList<AgeToLearn> AddAgeToLearns()
-        {
-            var ageToLearns = new List<AgeToLearn>()
-            {
-                new()
-                {
-                    Name = "Dưới 15 tuổi"
-                },
-                new()
-                {
-                    Name = "15 - 35 tuổi"
-                },
-                new()
-                {
-                    Name = "Trên 35 tuổi"
-                },
-            };
-            _dbContext.AddRange(ageToLearns);
-            _dbContext.SaveChanges();
-            return ageToLearns;
-        }
-
         private IList<Price> AddPrices()
         {
             var prices = new List<Price>()
@@ -346,7 +323,8 @@ namespace CookingWeb.Data.Seeders
             return numberofsessions;
         }
 
-        private IList<Student> AddStudents()
+        private IList<Student> AddStudents(
+            IList<Course> courses)
         {
             var students = new List<Student>()
             {
@@ -355,22 +333,33 @@ namespace CookingWeb.Data.Seeders
                     FullName = "Nguyễn Văn Kiệt",
                     Mobile = "0913411264",
                     Email = "nguyenvankiet@gmail.com",
+                    UrlSlug = "nguyen-van-kiet",
                     RegisterDate = new DateTime(2022, 12, 1),
                     Notes = "",
+                    Courses = new List<Course>()
+                    {
+                        courses[0],
+                    }
                 }
             };
-            _dbContext.AddRange(students);
+            var studentAdd = new List<Student>();
+            foreach (var student in students)
+            {
+                if (!_dbContext.Students.Any(s => s.UrlSlug.Equals(student.UrlSlug)))
+                {
+                    studentAdd.Add(student);
+                }
+            }
+            _dbContext.AddRange(studentAdd);
             _dbContext.SaveChanges();
             return students;
         }
 
         private IList<Course> AddCourses(
             IList<Demand> demands,
-            IList<AgeToLearn> ageToLearns,
             IList<Price> prices,
             IList<NumberOfSessions> numberOfSessions,
-            IList<Chef> chefs,
-            IList<Student> students)
+            IList<Chef> chefs)
         {
             var courses = new List<Course>()
             {
@@ -383,18 +372,13 @@ namespace CookingWeb.Data.Seeders
                     CreateDate = new DateTime(2017, 1, 1),
                     UpdateDate = null,
                     Demand = demands[1],
-                    AgeToLearn = ageToLearns[1],
                     Price = prices[1],
                     NumberOfSessions = numberOfSessions[1],
                     Published = true,
                     Chefs = new List<Chef>()
                     {
                         chefs[0]
-                    },
-                    Students = new List<Student>()
-                    {
-                        students[0]
-                    },
+                    }
                 }
             };
             var courseAdd = new List<Course>();

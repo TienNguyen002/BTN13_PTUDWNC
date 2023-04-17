@@ -13,9 +13,9 @@ namespace CookingWeb.Core.Entities
         public string FullName { get; set; }
         public string Mobile { get; set; }
         public string Email { get; set; }
+        public string UrlSlug { get; set; }
         public DateTime RegisterDate { get; set; }
         public string Notes { get; set; }
-        public int CourseId { get; set; }
         public IList<Course> Courses { get; set; }
     }
 }

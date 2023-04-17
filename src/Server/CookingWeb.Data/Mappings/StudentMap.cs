@@ -29,11 +29,19 @@ namespace CookingWeb.Data.Mappings
                 .IsRequired()
                 .HasMaxLength(100);
 
+            builder.Property(s => s.UrlSlug)
+                .IsRequired()
+                .HasMaxLength(500);
+
             builder.Property(s => s.RegisterDate)
                 .HasColumnType("datetime");
 
             builder.Property(s => s.Notes)
                 .HasMaxLength(500);
+
+            builder.HasMany(c => c.Courses)
+                .WithMany(s => s.Students)
+                .UsingEntity(pt => pt.ToTable("CoursesStudents"));
         }
     }
 }

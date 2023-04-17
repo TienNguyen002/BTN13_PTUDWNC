@@ -18,15 +18,11 @@ namespace CookingWeb.Core.Entities
         public DateTime CreateDate { get; set; }
         public DateTime? UpdateDate { get; set; }
         public int DemandId { get; set; }
-        public int AgeToLearnId { get; set; }
         public int PriceId { get; set; }
         public int NumberOfSessionsId { get; set; }
         public bool Published { get; set; }
         public int RegisterCount { get; set; }
-        public int ChefId { get; set; }
-        public int StudentId { get; set; }
         public Demand Demand { get; set; }
-        public AgeToLearn AgeToLearn { get; set; }
         public Price Price { get; set; }
         public NumberOfSessions NumberOfSessions { get; set; }
         public IList<Recipe> Recipes { get; set; }

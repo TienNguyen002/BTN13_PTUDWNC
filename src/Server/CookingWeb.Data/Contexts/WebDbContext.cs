@@ -16,7 +16,6 @@ namespace CookingWeb.Data.Contexts
         public DbSet<Chef> Chefs { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Demand> Demands { get; set; }
-        public DbSet<AgeToLearn> AgeToLearns { get; set; }
         public DbSet<Price> Prices { get; set; }
         public DbSet<NumberOfSessions> NumberOfSessions { get; set; }
         public DbSet<Post> Posts { get; set; }
