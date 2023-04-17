@@ -24,12 +24,13 @@ namespace CookingWeb.Data.Seeders
             if (_dbContext.Courses.Any()) return;
 
             var authors = AddAuthors();
-            var categories = AddCategories();
+            var topics = AddTopics();
             var chefs = AddChefs();
             var demands = AddDemands();
             var prices = AddPrices();
             var numberofsessions = AddNumberOfSessions();
 
+            var categories = AddCategories(topics);
             var courses = AddCourses(demands, prices, numberofsessions, chefs);
             var students = AddStudents(courses);
             var recipes = AddRecipes(courses, authors);
@@ -61,7 +62,40 @@ namespace CookingWeb.Data.Seeders
             return authors;
         }
 
-        private IList<Category> AddCategories()
+        private IList<Topic> AddTopics()
+        {
+            var topics = new List<Topic>()
+            {
+                new()
+                {
+                    Name = "Thực đơn mỗi ngày",
+                    UrlSlug = "thuc-don-moi-ngay",
+                },
+                new()
+                {
+                    Name = "Mẹo nhà bếp",
+                    UrlSlug = "meo-nha-bep",
+                },
+                new()
+                {
+                    Name = "Tin tức",
+                    UrlSlug = "tin-tuc"
+                }
+            };
+            var topicAdd = new List<Topic>();
+            foreach (var topic in topics)
+            {
+                if (!_dbContext.Topics.Any(t => t.UrlSlug.Equals(topic.UrlSlug)))
+                {
+                    topicAdd.Add(topic);
+                }
+            }
+            _dbContext.AddRange(topicAdd);
+            _dbContext.SaveChanges();
+            return topics;
+        }
+        private IList<Category> AddCategories(
+            IList<Topic> topics)
         {
             var categories = new List<Category>()
             {
@@ -70,7 +104,7 @@ namespace CookingWeb.Data.Seeders
                     Name = "Giảm cân",
                     Description = "Béo phì ngày càng gia tăng tại Việt Nam và đang ở mức báo động, đặc biệt là ở khu vực thành phố. Các con số không ngừng tăng lên. Có nhiều nguyên nhân gây nên tình trạng này. Cho nên, dinh dưỡng là yếu tố quyế t định hơn 70% sự thành công. Bên cạnh việc luyện tập thì bạn cũng cần phải có được một bữa ăn hợp lý và đầy đủ dinh dưỡng. Nghề Bếp Á Âu chia sẻ các thực đơn mỗi ngày nói chung và người muốn giảm cân nói riêng. Bạn có thể tham khảo thêm các thực đơn dưới đây nhé\r\n\r\nTổng hợp những thực đơn giảm cân trong 49 ngày được nghebep.com sưu tầm lại giúp bạn tham khảo thêm các món ăn giảm cân nhưng lại cung cấp đầy đủ năng lượng và chất dinh dưỡng",
                     UrlSlug = "giam-can",
-                    Topic = "Thực đơn mỗi ngày",
+                    Topic = topics[0],
                     ShowOnMenu = true,
                 },
                 new()
@@ -78,7 +112,7 @@ namespace CookingWeb.Data.Seeders
                     Name = "Tập Gym",
                     Description = "",
                     UrlSlug = "tap-gym",
-                    Topic = "Thực đơn mỗi ngày",
+                    Topic = topics[0],
                     ShowOnMenu = true,
                 },
                 new()
@@ -86,7 +120,7 @@ namespace CookingWeb.Data.Seeders
                     Name = "Bà Bầu",
                     Description = "",
                     UrlSlug = "ba-bau",
-                    Topic = "Thực đơn mỗi ngày",
+                    Topic = topics[0],
                     ShowOnMenu = true,
                 },
                 new()
@@ -94,7 +128,7 @@ namespace CookingWeb.Data.Seeders
                     Name = "Người bệnh",
                     Description = "",
                     UrlSlug = "nguoi-benh",
-                    Topic = "Thực đơn mỗi ngày",
+                    Topic = topics[0],
                     ShowOnMenu = true,
                 },
                 new()
@@ -102,7 +136,7 @@ namespace CookingWeb.Data.Seeders
                     Name = "Thực phẩm",
                     Description = "Thực phẩm sạch luôn là một trong những chủ đề quan tâm của khá nhiều người. Với những mẹo nhà bếp sẽ giúp bạn có những chọn lựa, bảo quản, chế biến thực phẩm một cách tốt nhất để giúp các chị em nội trợ có được một bữa cơm ngon và bổ dưỡng.",
                     UrlSlug = "thuc-pham",
-                    Topic = "Mẹo nhà bếp",
+                    Topic = topics[1],
                     ShowOnMenu = true,
                 },
                 new()
@@ -110,7 +144,7 @@ namespace CookingWeb.Data.Seeders
                     Name = "Dụng cụ",
                     Description = "Tổng hợp các mẹo vặt sử dụng các dụng cụ nhà bếp đúng cách, hợp vệ sinh, đúng kỹ thuật như những đầu bếp chuyên nghiệp",
                     UrlSlug = "dung-cu",
-                    Topic = "Mẹo nhà bếp",
+                    Topic = topics[1],
                     ShowOnMenu = true,
                 },
                 new()
@@ -118,7 +152,7 @@ namespace CookingWeb.Data.Seeders
                     Name = "Chế biến",
                     Description = "Tổng hợp và chia sẽ các Mẹo hay, kỹ thuật, bí quyết các cách Chế biến thực phẩm mà vẫn giữ được chất dinh dưỡng, tao ra một món ăn ngon.\r\n\r\nNgoài ra bạn có thể tham khảo nhiều mẹo vặt hay nhà bếp để có thêm nhiều kiến thức, kỹ năng, mẹo vặt giúp bạn yêu bếp hơn.",
                     UrlSlug = "che-bien",
-                    Topic = "Mẹo nhà bếp",
+                    Topic = topics[1],
                     ShowOnMenu = true,
                 },
                 new()
@@ -126,7 +160,7 @@ namespace CookingWeb.Data.Seeders
                     Name = "Trang trí",
                     Description = "Một trong những cách để tạo ra sự hấp dẫn cho món ăn đó chính là cách trang trí món ăn. Nó đóng một vai trò quan trọng, góp phần và việc tạo ra được một món ăn thơm ngon và hấp dẫn. Nhưng không phải ai cũng có thể khéo tay để thực hiện được điều đó, món ăn được trang trí đẹp thì phải có bí quyết.\r\n\r\nChuyên mục dưới đây tổng hợp và trình bày các bí quyết trang trí món ăn hấp dẫn và bắt mắt từ các đầu bếp chuyên nghiệp.\r\n\r\nSự hấp dẫn của món ăn phụ thuộc và cách trang trí nhưng một phần, nó còn phụ thuộc và nhiều yếu tốkhác nữa. Bạn có thể tham khảo đầy đủ các yếu tố đó ở mẹo nhà bếp. Tại đây bạn có thể biết đươc những kiến thức hay về mẹo chọn lựa, chế biến nguyên liệu, món ăn để góp phần làm ngon bữa ăn của gia đình bạn\r\n\r\n",
                     UrlSlug = "trang-tri",
-                    Topic = "Mẹo nhà bếp",
+                    Topic = topics[1],
                     ShowOnMenu = true,
                 },
                 new()
@@ -134,7 +168,7 @@ namespace CookingWeb.Data.Seeders
                     Name = "Khám phá",
                     Description = "Với nghề đầu bếp, đây là một nghề rất vất vả nhưng rất thú vị. Mỗi nơi, mỗi người, mỗi món ăn đều có những đặc trưng riêng. Đặc biệt là những nét riêng biệt ẩm thực vùng miền.\r\n\r\nChuyên trang tin hay nghề bếp sẽ giúp bạn khám phá thêm nhiều điều thú vị về ẩm thức của các vùng miền khác nhau, không những ở Việt nam mà còn các nước trên thế giới.\r\n\r\nĐiều này giúp bạn có được cái nhìn tổng quan hơn với nghề bếp. Từ đó giúp bạn yêu nghề và đam mê với nghề hơn.",
                     UrlSlug = "kham-pha",
-                    Topic = "Tin tức",
+                    Topic = topics[2],
                     ShowOnMenu = true,
                 },
                 new()
@@ -142,7 +176,7 @@ namespace CookingWeb.Data.Seeders
                     Name = "Đầu bếp nổi tiếng",
                     Description = "Nếu mỗi món ăn là một tác phẩm nghệ thuật thì người đầu bếp chính là một nghệ sĩ. Thế giới đã và đang vinh danh những “nghệ sĩ ẩm thực” góp phần làm thay đổi bộ mặt của nền ẩm thực đương đại, là những tấm gương sáng cho các thế hệ đầu bếp trẻ trên hành trình nỗ lực để theo đuổi đam mê. Tại đây, có thể bạn sẽ tìm ra niềm cảm hứng cho chính mình qua các bài viết về những đầu bếp nổi tiếng thế giới cũng như tại Việt Nam.\r\n\r\nCon đường vươn đến đỉnh cao nghề bếp không hề dễ dàng. Để chạm tay vào thành công, các đầu bếp nổi tiếng đã phải vượt qua vô vàn khó khăn, thử thách và cả sự hoài nghi của xã hội. Nhưng họ đã dũng cảm vượt lên chính mình, từng bước chứng minh cho cả thế giới thấy rằng chỉ cần nỗ lực không ngừng, thành công sẽ tìm đến bạn vào một ngày nào đó. Cùng Nghề Bếp Á Âu lắng nghe câu chuyện, chia sẻ, bí quyết và kinh nghiệm để đời của những đầu bếp nổi tiếng thế giới và những đầu bếp Việt lừng danh để tìm ra lời giải đáp cho những thành công vượt trội của họ.\r\n\r\nKhông chỉ vượt trội về khả năng chuyên môn, tiếng vang của những tên tuổi này còn vươn xa khỏi quốc gia của họ nhờ tài năng ở các lĩnh vực khác như truyền hình, làm phim, viết sách, kinh doanh hay hoạt động xã hội. Hy vọng loạt bài viết về các đầu bếp lừng danh trong nước và quốc tế sẽ đem đến niềm vui và nguồn động lực lớn cho bạn thêm tin tưởng vào lựa chọn của mình.\r\n\r\nNgoài ra bạn có thể xem thêm chuyên mục Tin hay Nghề bếp để cập những kiến thức, kỹ năng để bổ sung cho bản thân mình",
                     UrlSlug = "dau-bep-noi-tieng",
-                    Topic = "Tin tức",
+                    Topic = topics[2],
                     ShowOnMenu = true,
                 },
                 new()
@@ -150,7 +184,7 @@ namespace CookingWeb.Data.Seeders
                     Name = "Định hướng",
                     Description = "Với nghề đầu bếp, một nghề mang tính đặc biệt đòi hỏi người làm phải vừa có chuyên môn vừa có tâm với nghề. Nếu thật sự người đầu bếp có nhiều kỹ năng, có tâm thì hầu như tất cả những nổi buồn sẽ không còn.\r\n\r\nKhi thực khách thưởng thức một món ăn ngon, người ta hầu như sẽ nhớ ngay đến nhà hàng mà ít ai nhớ đến tên người nấu. Còn khi thức ăn không ngon miệng thì người đầu bếp là người chịu trách nhiệm đầu tiên. Tuy nhiên, niềm vui lớn nhất là được thỏa đam mê với nghề, được làm ra những món ăn ngon cho thực khách, cho những người thân yêu. Vui nhất là khi thực khách xuống bếp bắt tay vì được ăn ngon. Khi ấy những mệt mỏi, áp lực hầu như tan biến. Và còn gì hạnh phúc hơn khi chính người đầu bếp được gắn với một thương hiệu món riêng như: “Văn ba ba”, “Hiếu gà hành tăm”, “Đoan lẩu canh củ”, “Hoàng rươi Tứ Kỳ”…\r\n\r\nVà chuyên mục này sẽ nói những tâm sự của những người trong nghề bếp “lem luốc” mà đáng quý này! Giúp những bạn chưa có định hướng nên học nghề gì tìm được một nghề theo đam mê và thu nhập ổn định cho mình.",
                     UrlSlug = "dinh-huong",
-                    Topic = "Tin tức",
+                    Topic = topics[2],
                     ShowOnMenu = true,
                 },
                 new()
@@ -158,7 +192,7 @@ namespace CookingWeb.Data.Seeders
                     Name = "Kinh doanh",
                     Description = "Nếu bạn đang có dự định kinh doanh khởi nghiệp với nghề nấu ăn như mở quán cafe, mở tiệm bánh, kinh doanh ẩm thực nhưng bạn không biết bắt đầu từ đầu. Đây là chuyên mục chia sẽ những kiến thức mà bạn cần học hỏi. Chia sẻ cho bạn những kinh nghiệm kinh doanh quán ăn hấp dẫn bắt kịp xu hướng hiện đại.\r\n\r\nNgoài ra bạn có thể xem thêm chuyên mục Tin hay Nghề Đầu bếp để cập những kiến thức, kỹ năng để bổ sung kinh nghiệm nghề bếp cho bản thân mình. Từ đó áp dụng thực tế kinh doanh để đạt kết quả thành công.",
                     UrlSlug = "kinh-doanh",
-                    Topic = "Tin tức",
+                    Topic = topics[2],
                     ShowOnMenu = true,
                 },
                 new()
@@ -166,7 +200,7 @@ namespace CookingWeb.Data.Seeders
                     Name = "Kỹ thuật nấu ăn",
                     Description = "Tổng hợp các bài viết về kỹ thuật nấu ăn từ cơ bản đến nâng cao dành cho các đầu bếp chuyên nghiệp hoặc những ai muốn cải thiện kỹ năng nghề bếp. Dù là một người nội trợ gia đình hay đầu bếp chuyên nghiệp, việc hiểu rõ các phương pháp, kỹ thuật nấu nướng sẽ giúp bạn tạo ra các món ăn chất lượng cả về hương vị và tính thẩm mỹ.\r\n\r\nCác nội dung được đầu tư đa dạng, cung cấp đầy đủ chi tiết kiến thức từ các kỹ thuật nấu ăn cơ bản: áp chảo, chiên, hấp… cho đến các kỹ thuật nấu nướng nâng cao dành cho đầu bếp chuyên nghiệp: kỹ thuật confit, kỹ thuật đút lò, phi lê cá… giúp bạn từng bước hoàn thiện kỹ năng chuyên môn, trau dồi những kiến thức ẩm thực quan trọng. Nhuần nhuyễn các kỹ thuật chế biến món ăn cũng là nền tảng để bạn chinh phục các vị trí làm việc đòi hỏi kỹ năng tay nghề cao hoặc thỏa sức sáng tạo với các món ăn mang dấu ấn riêng, thỏa mãn mọi khách hàng khó tính nhất.\r\n\r\nTrong mỗi chia sẻ, chúng tôi luôn chú trọng đề cập đến các khái niệm, định nghĩa, hướng dẫn thực hiện chi tiết từng phương pháp chế biến xen kẽ các ví dụ và hình ảnh rõ ràng, bám sát thực tế. Hy vọng những kiến thức mà chúng tôi chia sẻ sẽ là cẩm nang gối đầu của các bạn đang học nghề làm đầu bếp để tạo ra những món ăn ngon.",
                     UrlSlug = "ky-thuat-nau-an",
-                    Topic = "Tin tức",
+                    Topic = topics[2],
                     ShowOnMenu = true,
                 },
                 new()
@@ -174,7 +208,7 @@ namespace CookingWeb.Data.Seeders
                     Name = "Kiến thức ẩm thực",
                     Description = "Một đầu bếp giỏi không chỉ là người biết nấu ăn ngon mà còn có nền tảng kiến thức cơ bản về ẩm thực vững vàng được học từ những đầu bếp có nhiều kinh nghiệm hoặc được học tại các khóa học nấu ăn nữa đấy. Việc am hiểu cách bảo quản, sử dụng các dụng cụ và nguyên vật liệu nấu ăn giúp bạn áp dụng vào chế biến, sáng tạo món ăn một cách nhanh chóng, hiệu quả, giảm thiểu tối đa các rủi ro không đáng có trong khi làm bếp. Hiểu rõ tính chất của từng nguyên liệu, thực phẩm cũng giúp bạn nắm bắt khẩu vị của khách hàng đến từ các nền văn hóa, quốc gia khác nhau. Từ đó, việc phục vụ thực khách quốc tế trở nên dễ dàng hơn bao giờ hết.\r\n\r\nNhận thấy được tầm quan trọng của việc trau dồi kiến thức về nấu ăn, Nghề Bếp Á Âu (NBAAu) xây dựng chuyên mục Kiến thức ẩm thực nhằm đem đến cho các đầu bếp các bài viết với nội dung đa dạng, bổ ích cho quá trình theo đuổi đam mê nấu ăn của bạn.\r\n\r\nBên cạnh kiến thức về chuyên môn, rất nhiều mẹo hay trong nhà bếp được chia sẻ trong chuyên mục không chỉ hữu ích dành cho đầu bếp chuyên nghiệp mà còn thích hợp cho các đầu bếp gia đình, người yêu nấu ăn tham khảo. Những thắc mắc, hiểu lầm thường gặp đến từ các vấn đề trong nhà bếp được giải đáp cặn kẽ và chi tiết giúp người đọc dễ hình dung, dễ dàng áp dụng vào thực tế. Cùng đón đọc ngay những bài viết về kiến thức ẩm thực của Nghề Bếp Á Âu để khám phá những điều thú vị từ thế giới ẩm thực đa dạng, đầy màu sắc.",
                     UrlSlug = "kien-thuc-am-thuc",
-                    Topic = "Tin tức",
+                    Topic = topics[2],
                     ShowOnMenu = true,
                 }
             };
@@ -285,15 +319,18 @@ namespace CookingWeb.Data.Seeders
             {
                 new()
                 {
-                    Name = "Dưới 3 triệu"
+                    Name = "Dưới 3 triệu",
+                    UrlSlug = "duoi-3-trieu"
                 },
                 new()
                 {
-                    Name = "3 - 7 triệu"
+                    Name = "3 - 7 triệu",
+                    UrlSlug = "3-7-trieu"
                 },
                 new()
                 {
-                    Name = "Trên 7 triệu"
+                    Name = "Trên 7 triệu",
+                    UrlSlug = "tren-7-trieu"
                 },
             };
             _dbContext.AddRange(prices);
@@ -307,15 +344,18 @@ namespace CookingWeb.Data.Seeders
             {
                 new()
                 {
-                    Name = "Dưới 10 buổi"
+                    Name = "Dưới 10 buổi",
+                    UrlSlug = "duoi-10-buoi"
                 },
                 new()
                 {
-                    Name = "10 - 30 buổi"
+                    Name = "10 - 30 buổi",
+                    UrlSlug = "10-30-buoi"
                 },
                 new()
                 {
-                    Name = "Trên 30 buổi"
+                    Name = "Trên 30 buổi",
+                    UrlSlug = "tren-30-buoi"
                 },
             };
             _dbContext.AddRange(numberofsessions);

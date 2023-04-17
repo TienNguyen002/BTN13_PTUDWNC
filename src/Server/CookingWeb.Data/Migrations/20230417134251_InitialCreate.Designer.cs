@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CookingWeb.Data.Migrations
 {
     [DbContext(typeof(WebDbContext))]
-    [Migration("20230417130603_InitialCreate")]
+    [Migration("20230417134251_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -85,13 +85,15 @@ namespace CookingWeb.Data.Migrations
                     b.Property<bool>("ShowOnMenu")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Topic")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("TopicId")
+                        .HasColumnType("int");
 
                     b.Property<string>("UrlSlug")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TopicId");
 
                     b.ToTable("Categories");
                 });
@@ -209,6 +211,9 @@ namespace CookingWeb.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UrlSlug")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("NumberOfSessions");
@@ -276,6 +281,9 @@ namespace CookingWeb.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UrlSlug")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -373,6 +381,25 @@ namespace CookingWeb.Data.Migrations
                     b.ToTable("Students");
                 });
 
+            modelBuilder.Entity("CookingWeb.Core.Entities.Topic", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UrlSlug")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Topics");
+                });
+
             modelBuilder.Entity("CourseStudent", b =>
                 {
                     b.Property<int>("CoursesId")
@@ -401,6 +428,17 @@ namespace CookingWeb.Data.Migrations
                         .HasForeignKey("CoursesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("CookingWeb.Core.Entities.Category", b =>
+                {
+                    b.HasOne("CookingWeb.Core.Entities.Topic", "Topic")
+                        .WithMany("Categories")
+                        .HasForeignKey("TopicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Topic");
                 });
 
             modelBuilder.Entity("CookingWeb.Core.Entities.Course", b =>
@@ -513,6 +551,11 @@ namespace CookingWeb.Data.Migrations
             modelBuilder.Entity("CookingWeb.Core.Entities.Price", b =>
                 {
                     b.Navigation("Courses");
+                });
+
+            modelBuilder.Entity("CookingWeb.Core.Entities.Topic", b =>
+                {
+                    b.Navigation("Categories");
                 });
 #pragma warning restore 612, 618
         }

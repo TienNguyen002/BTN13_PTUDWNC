@@ -12,6 +12,7 @@ namespace CookingWeb.Data.Contexts
     public class WebDbContext :  DbContext
     {
         public DbSet<Author> Authors { get; set; }
+        public DbSet<Topic> Topics { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Chef> Chefs { get; set; }
         public DbSet<Course> Courses { get; set; }
