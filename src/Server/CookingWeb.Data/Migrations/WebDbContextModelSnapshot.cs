@@ -22,21 +22,6 @@ namespace CookingWeb.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ChefCourse", b =>
-                {
-                    b.Property<int>("ChefsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CoursesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ChefsId", "CoursesId");
-
-                    b.HasIndex("CoursesId");
-
-                    b.ToTable("ChefCourse");
-                });
-
             modelBuilder.Entity("CookingWeb.Core.Entities.Author", b =>
                 {
                     b.Property<int>("Id")
@@ -131,6 +116,9 @@ namespace CookingWeb.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("ChefId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
@@ -168,6 +156,8 @@ namespace CookingWeb.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ChefId");
 
                     b.HasIndex("DemandId");
 
@@ -412,21 +402,6 @@ namespace CookingWeb.Data.Migrations
                     b.ToTable("CourseStudent");
                 });
 
-            modelBuilder.Entity("ChefCourse", b =>
-                {
-                    b.HasOne("CookingWeb.Core.Entities.Chef", null)
-                        .WithMany()
-                        .HasForeignKey("ChefsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CookingWeb.Core.Entities.Course", null)
-                        .WithMany()
-                        .HasForeignKey("CoursesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("CookingWeb.Core.Entities.Category", b =>
                 {
                     b.HasOne("CookingWeb.Core.Entities.Topic", "Topic")
@@ -440,6 +415,12 @@ namespace CookingWeb.Data.Migrations
 
             modelBuilder.Entity("CookingWeb.Core.Entities.Course", b =>
                 {
+                    b.HasOne("CookingWeb.Core.Entities.Chef", "Chef")
+                        .WithMany("Courses")
+                        .HasForeignKey("ChefId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("CookingWeb.Core.Entities.Demand", "Demand")
                         .WithMany("Courses")
                         .HasForeignKey("DemandId")
@@ -457,6 +438,8 @@ namespace CookingWeb.Data.Migrations
                         .HasForeignKey("PriceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Chef");
 
                     b.Navigation("Demand");
 
@@ -528,6 +511,11 @@ namespace CookingWeb.Data.Migrations
             modelBuilder.Entity("CookingWeb.Core.Entities.Category", b =>
                 {
                     b.Navigation("Posts");
+                });
+
+            modelBuilder.Entity("CookingWeb.Core.Entities.Chef", b =>
+                {
+                    b.Navigation("Courses");
                 });
 
             modelBuilder.Entity("CookingWeb.Core.Entities.Course", b =>

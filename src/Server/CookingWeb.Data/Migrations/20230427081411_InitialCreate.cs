@@ -135,12 +135,19 @@ namespace CookingWeb.Data.Migrations
                     DemandId = table.Column<int>(type: "int", nullable: false),
                     PriceId = table.Column<int>(type: "int", nullable: false),
                     NumberOfSessionsId = table.Column<int>(type: "int", nullable: false),
+                    ChefId = table.Column<int>(type: "int", nullable: false),
                     Published = table.Column<bool>(type: "bit", nullable: false),
                     RegisterCount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Courses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Courses_Chefs_ChefId",
+                        column: x => x.ChefId,
+                        principalTable: "Chefs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Courses_Demands_DemandId",
                         column: x => x.DemandId,
@@ -180,30 +187,6 @@ namespace CookingWeb.Data.Migrations
                         name: "FK_Categories_Topics_TopicId",
                         column: x => x.TopicId,
                         principalTable: "Topics",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ChefCourse",
-                columns: table => new
-                {
-                    ChefsId = table.Column<int>(type: "int", nullable: false),
-                    CoursesId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ChefCourse", x => new { x.ChefsId, x.CoursesId });
-                    table.ForeignKey(
-                        name: "FK_ChefCourse_Chefs_ChefsId",
-                        column: x => x.ChefsId,
-                        principalTable: "Chefs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ChefCourse_Courses_CoursesId",
-                        column: x => x.CoursesId,
-                        principalTable: "Courses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -312,9 +295,9 @@ namespace CookingWeb.Data.Migrations
                 column: "TopicId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ChefCourse_CoursesId",
-                table: "ChefCourse",
-                column: "CoursesId");
+                name: "IX_Courses_ChefId",
+                table: "Courses",
+                column: "ChefId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Courses_DemandId",
@@ -361,9 +344,6 @@ namespace CookingWeb.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ChefCourse");
-
-            migrationBuilder.DropTable(
                 name: "CourseStudent");
 
             migrationBuilder.DropTable(
@@ -371,9 +351,6 @@ namespace CookingWeb.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Recipes");
-
-            migrationBuilder.DropTable(
-                name: "Chefs");
 
             migrationBuilder.DropTable(
                 name: "Students");
@@ -389,6 +366,9 @@ namespace CookingWeb.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Topics");
+
+            migrationBuilder.DropTable(
+                name: "Chefs");
 
             migrationBuilder.DropTable(
                 name: "Demands");
