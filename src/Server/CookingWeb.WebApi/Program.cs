@@ -18,8 +18,11 @@ var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 {
     app.SetupRequestPipeline();
-    app.MapCategoryEndpoints();
     app.UseDataSeeder();
+
+    app.MapCategoryEndpoints();
+    app.MapCourseEndPoints();
+
     app.Run();
 }
 

@@ -20,13 +20,14 @@ namespace CookingWeb.Core.Entities
         public int DemandId { get; set; }
         public int PriceId { get; set; }
         public int NumberOfSessionsId { get; set; }
+        public int ChefId { get; set; }
         public bool Published { get; set; }
         public int RegisterCount { get; set; }
         public Demand Demand { get; set; }
         public Price Price { get; set; }
         public NumberOfSessions NumberOfSessions { get; set; }
+        public Chef Chef { get; set; }
         public IList<Recipe> Recipes { get; set; }
-        public IList<Chef> Chefs { get; set; }
         public IList<Student> Students { get; set; }
     }
 }

@@ -415,10 +415,7 @@ namespace CookingWeb.Data.Seeders
                     Price = prices[1],
                     NumberOfSessions = numberOfSessions[1],
                     Published = true,
-                    Chefs = new List<Chef>()
-                    {
-                        chefs[0]
-                    }
+                    Chef = chefs[0]
                 }
             };
             var courseAdd = new List<Course>();

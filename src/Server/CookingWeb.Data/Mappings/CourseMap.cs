@@ -73,9 +73,11 @@ namespace CookingWeb.Data.Mappings
                 .HasConstraintName("FK_Courses_NumberOfSessions")
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasMany(c => c.Chefs)
+            builder.HasOne(c => c.Chef)
                 .WithMany(c => c.Courses)
-                .UsingEntity(pt => pt.ToTable("CoursesChefs"));
+                .HasForeignKey(t => t.ChefId)
+                .HasConstraintName("FK_Courses_Chefs")
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
