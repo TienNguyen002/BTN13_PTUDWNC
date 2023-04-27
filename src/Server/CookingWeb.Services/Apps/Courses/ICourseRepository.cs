@@ -11,6 +11,8 @@ namespace CookingWeb.Services.Apps.Courses
 {
     public interface ICourseRepository
     {
+        Task<Course> GetCourseById(int id, bool includeDetails = false, CancellationToken cancellationToken = default);
+        Task<Course> GetCourseBySlug(string slug, bool includeDetails = false, CancellationToken cancellationToken = default);
         Task<IPagedList<T>> GetPagedCoursesAsync<T>(CourseQuery query,
             IPagingParams pagingParams,
             Func<IQueryable<Course>, IQueryable<T>> mapper,

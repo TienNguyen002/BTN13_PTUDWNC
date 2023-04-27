@@ -23,6 +23,37 @@ namespace CookingWeb.Services.Apps.Courses
             _memoryCache = memoryCache;
         }
 
+        public async Task<Course> GetCourseById(int id, bool includeDetails = false, CancellationToken cancellationToken = default)
+        {
+            if(!includeDetails)
+            {
+                return await _context.Set<Course>().FindAsync(id);
+            }
+            return await _context.Set<Course>()
+                .Include(c => c.Demand)
+                .Include(c => c.Price)
+                .Include(c => c.NumberOfSessions)
+                .Include(c => c.Chef)
+                .Where(c => c.Id == id)
+                .FirstOrDefaultAsync(cancellationToken);
+        }
+
+        public async Task<Course> GetCourseBySlug(string slug, bool includeDetails, CancellationToken cancellationToken)
+        {
+            if (!includeDetails)
+            {
+                return await _context.Set<Course>().Where(c => c.UrlSlug == slug)
+                    .FirstOrDefaultAsync(cancellationToken);
+            }
+            return await _context.Set<Course>()
+                .Include(c => c.Demand)
+                .Include(c => c.Price)
+                .Include(c => c.NumberOfSessions)
+                .Include(c => c.Chef)
+                .Where(c => c.UrlSlug == slug)
+                .FirstOrDefaultAsync(cancellationToken);
+        }
+
         private IQueryable<Course> FindCourseByQueryable(CourseQuery query)
         {
             IQueryable<Course> courseQuery = _context.Set<Course>()

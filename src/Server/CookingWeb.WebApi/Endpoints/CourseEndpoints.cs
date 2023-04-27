@@ -5,6 +5,8 @@ using CookingWeb.WebApi.Models;
 using CookingWeb.WebApi.Models.Course;
 using Mapster;
 using MapsterMapper;
+using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace CookingWeb.WebApi.Endpoints
 {
@@ -17,6 +19,14 @@ namespace CookingWeb.WebApi.Endpoints
             routeGroupBuilder.MapGet("/", GetCourses)
                 .WithName("GetCourses")
                 .Produces<ApiResponse<PaginationResult<CourseDto>>>();
+
+            routeGroupBuilder.MapGet("/{id:int}", GetCourseById)
+                .WithName("GetCourseById")
+                .Produces<ApiResponse<CourseDetail>>();
+
+            routeGroupBuilder.MapGet("/{slug:regex(^[a-z0-9_-]+$)}/courses", GetCourseBySlug)
+              .WithName("GetCourseBySlug")
+              .Produces<ApiResponse<CourseDetail>>();
 
             return app;
         }
@@ -31,6 +41,27 @@ namespace CookingWeb.WebApi.Endpoints
                 courses => courses.ProjectToType<CourseDto>());
             var paginationResult = new PaginationResult<CourseDto>(courses);
             return Results.Ok(ApiResponse.Success(paginationResult));
+        }
+
+        private static async Task<IResult> GetCourseById(int id,
+            ICourseRepository courseRepository,
+            IMapper mapper)
+        {
+            var courses = await courseRepository.GetCourseById(id, true);
+            return courses == null
+                ? Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy khóa học có id {id}"))
+                : Results.Ok(ApiResponse.Success(mapper.Map<CourseDetail>(courses)));
+        }
+
+        private static async Task<IResult> GetCourseBySlug(
+            [FromRoute] string slug,
+            ICourseRepository courseRepository,
+            IMapper mapper)
+        {
+            var courses = await courseRepository.GetCourseBySlug(slug, true);
+            return courses == null
+               ? Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy khóa học có slug {slug}"))
+               : Results.Ok(ApiResponse.Success(mapper.Map<CourseDetail>(courses)));
         }
     }
 }
