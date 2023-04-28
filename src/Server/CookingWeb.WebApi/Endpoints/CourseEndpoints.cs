@@ -1,13 +1,17 @@
 ﻿using CookingWeb.Core.Collections;
 using CookingWeb.Core.DTO.Course;
+using CookingWeb.Core.Entities;
 using CookingWeb.Services.Apps.Courses;
 using CookingWeb.Services.Apps.Other;
+using CookingWeb.Services.Media;
+using CookingWeb.WebApi.Filters;
 using CookingWeb.WebApi.Models;
 using CookingWeb.WebApi.Models.Course;
 using Mapster;
 using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Hosting;
 using System.Net;
 
 namespace CookingWeb.WebApi.Endpoints
@@ -41,6 +45,11 @@ namespace CookingWeb.WebApi.Endpoints
             routeGroupBuilder.MapGet("/get-filter", GetFilter)
                 .WithName("GetFilter")
                 .Produces<ApiResponse<CourseFilterModel>>();
+
+            routeGroupBuilder.MapPost("/", AddCourse)
+                .WithName("AddCourse")
+                .AddEndpointFilter<ValidatorFilter<CourseEditModel>>()
+                .Produces<ApiResponse<CourseDto>>();
 
             return app;
         }
@@ -125,6 +134,35 @@ namespace CookingWeb.WebApi.Endpoints
                 })
             };
             return Results.Ok(ApiResponse.Success(model));
+        }
+
+        private static async Task<IResult> AddCourse(
+            CourseEditModel model,
+            IMapper mapper,
+            ICourseRepository courseRepository,
+            IAppRepository appRepository,
+            IMediaManager mediaManager)
+        {
+            if(await courseRepository.IsCourseSludExitedAsync(0, model.UrlSlug))
+            {
+                return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict, $"Slug '{model.UrlSlug}' đã được sử dụng"));
+            }
+            if(await appRepository.GetDemandByIdAsync(model.DemandId) == null)
+            {
+                return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict, $"Không tìm thấy nhu cầu có id = '{model.DemandId}' "));
+            }
+            if (await appRepository.GetPriceByIdAsync(model.PriceId) == null)
+            {
+                return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict, $"Không tìm thấy giá có id = '{model.PriceId}' "));
+            }
+            if (await appRepository.GetNumberOfSessionsByIdAsync(model.NumberOfSessionsId) == null)
+            {
+                return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict, $"Không tìm thấy số buổi học có id = '{model.NumberOfSessionsId}' "));
+            }
+            var course = mapper.Map<Course>(model);
+            course.CreateDate = DateTime.Now;
+            await courseRepository.AddOrUpdateCourseAsync(course);
+            return Results.Ok(ApiResponse.Success(mapper.Map<CourseDto>(course),HttpStatusCode.Created));
         }
     }
 }

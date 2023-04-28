@@ -38,6 +38,12 @@ namespace CookingWeb.Services.Apps.Courses
                 .FirstOrDefaultAsync(cancellationToken);
         }
 
+        public async Task<bool> IsCourseSludExitedAsync(int id, string slug, CancellationToken cancellationToken = default)
+        {
+            return await _context.Set<Course>()
+                .AnyAsync(c => c.Id != id && c.UrlSlug == slug, cancellationToken);
+        }
+
         public async Task<Course> GetCourseBySlug(string slug, bool includeDetails, CancellationToken cancellationToken)
         {
             if (!includeDetails)
@@ -125,6 +131,18 @@ namespace CookingWeb.Services.Apps.Courses
             await _context.Set<Course>()
                 .Where(c => c.Id == id)
                 .ExecuteUpdateAsync(c => c.SetProperty(c => c.Published, c => !c.Published), cancellationToken);
+        }
+
+        public async Task<bool> AddOrUpdateCourseAsync(Course course, CancellationToken cancellationToken = default)
+        {
+            if (course.Id > 0)
+            {
+                course.UpdateDate = DateTime.Now;
+                _context.Update(course);
+            }
+            else
+                _context.Add(course);
+            return await _context.SaveChangesAsync(cancellationToken) > 0;
         }
     }
 }

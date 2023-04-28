@@ -37,6 +37,14 @@ namespace CookingWeb.Services.Apps.Other
                 .OrderByDescending(d => d.CoursesCount)
                 .ToListAsync(cancellationToken);
         }
+
+        public async Task<Demand> GetDemandByIdAsync(int id, CancellationToken cancellationToken = default)
+        {
+            return await _context.Set<Demand>()
+                .Include(d => d.Courses)
+                .Where(d => d.Id == id)
+                .FirstOrDefaultAsync(cancellationToken);
+        }
         #endregion
 
         #region Price
@@ -55,6 +63,14 @@ namespace CookingWeb.Services.Apps.Other
                 .OrderByDescending(p =>  p.CoursesCount)
                 .ToListAsync(cancellationToken);
         }
+
+        public async Task<Price> GetPriceByIdAsync(int id, CancellationToken cancellationToken = default)
+        {
+            return await _context.Set<Price>()
+                .Include(p => p.Courses)
+                .Where(p => p.Id == id)
+                .FirstOrDefaultAsync(cancellationToken);
+        }
         #endregion
 
         #region NumberOfSessions
@@ -72,6 +88,14 @@ namespace CookingWeb.Services.Apps.Other
                 })
                 .OrderByDescending(p => p.CoursesCount)
                 .ToListAsync(cancellationToken);
+        }
+
+        public async Task<NumberOfSessions> GetNumberOfSessionsByIdAsync(int id, CancellationToken cancellationToken = default)
+        {
+            return await _context.Set<NumberOfSessions>()
+                .Include(n => n.Courses)
+                .Where(n => n.Id == id)
+                .FirstOrDefaultAsync(cancellationToken);
         }
         #endregion
     }
