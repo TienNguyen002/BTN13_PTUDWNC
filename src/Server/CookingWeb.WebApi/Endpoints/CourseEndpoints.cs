@@ -1,11 +1,13 @@
 ﻿using CookingWeb.Core.Collections;
 using CookingWeb.Core.DTO.Course;
 using CookingWeb.Services.Apps.Courses;
+using CookingWeb.Services.Apps.Other;
 using CookingWeb.WebApi.Models;
 using CookingWeb.WebApi.Models.Course;
 using Mapster;
 using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Net;
 
 namespace CookingWeb.WebApi.Endpoints
@@ -35,6 +37,10 @@ namespace CookingWeb.WebApi.Endpoints
             routeGroupBuilder.MapGet("/toggle-status/{id:int}", ToggleStatus)
                 .WithName("ToggleStatus")
                 .Produces<ApiResponse<string>>();
+
+            routeGroupBuilder.MapGet("/get-filter", GetFilter)
+                .WithName("GetFilter")
+                .Produces<ApiResponse<CourseFilterModel>>();
 
             return app;
         }
@@ -92,6 +98,33 @@ namespace CookingWeb.WebApi.Endpoints
             }
             await courseRepository.ToggleStatus(id);
             return Results.Ok(ApiResponse.Success("Đổi trạng thái thành công", HttpStatusCode.NoContent));
+        }
+
+        private static async Task<IResult> GetFilter(
+            IAppRepository appRepository)
+        {
+            var model = new CourseFilterModel()
+            {
+                DemandList = (await appRepository.GetDemandsAsync())
+                .Select(d => new SelectListItem()
+                {
+                    Text = d.Name,
+                    Value = d.Id.ToString()
+                }),
+                PriceList = (await appRepository.GetPricesAsync())
+                .Select(p => new SelectListItem()
+                {
+                    Text = p.Name,
+                    Value = p.Id.ToString()
+                }),
+                NumberOfSessionsList = (await appRepository.GetNumberOfSessionsAsync())
+                .Select(n => new SelectListItem()
+                {
+                    Text = n.Name,
+                    Value = n.Id.ToString()
+                })
+            };
+            return Results.Ok(ApiResponse.Success(model));
         }
     }
 }

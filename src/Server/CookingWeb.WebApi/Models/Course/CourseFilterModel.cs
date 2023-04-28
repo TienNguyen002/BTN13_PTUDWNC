@@ -35,12 +35,12 @@ namespace CookingWeb.WebApi.Models.Course
 
         public CourseFilterModel()
         {
+            CultureInfo.CurrentCulture = new CultureInfo("vi-VN");
             MonthList = Enumerable.Range(1, 12)
             .Select(m => new SelectListItem()
             {
                 Value = m.ToString(),
-                Text =
-            CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(m)
+                Text = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(m)
             })
             .ToList();
         }

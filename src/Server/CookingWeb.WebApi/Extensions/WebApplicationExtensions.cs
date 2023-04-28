@@ -7,6 +7,7 @@ using CookingWeb.Services.Timing;
 using CookingWeb.Data.Seeders;
 using CookingWeb.Services.Apps.Categories;
 using CookingWeb.Services.Apps.Courses;
+using CookingWeb.Services.Apps.Other;
 
 namespace TatBlog.WebApi.Extensions
 {
@@ -26,6 +27,7 @@ namespace TatBlog.WebApi.Extensions
             builder.Services.AddScoped<IDataSeeder, DataSeeder>();
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+            builder.Services.AddScoped<IAppRepository, AppRepository>();
 
             return builder;
         }
