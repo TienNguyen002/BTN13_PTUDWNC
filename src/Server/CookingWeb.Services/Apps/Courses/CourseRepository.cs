@@ -104,5 +104,27 @@ namespace CookingWeb.Services.Apps.Courses
             IQueryable<T> result = mapper(coursesFindResultQuery);
             return await result.ToPagedListAsync(pagingParams, cancellationToken);
         }
+
+        public async Task<IList<T>> GetNPopularCoursesAsync<T>(int n, 
+            Func<IQueryable<Course>, IQueryable<T>> mapper, 
+            CancellationToken cancellationToken = default)
+        {
+            var popular = _context.Set<Course>()
+                .Include(c => c.Demand)
+                .Include(c => c.Price)
+                .Include(c => c.NumberOfSessions)
+                .Include(c => c.Chef)
+                .Where(c => c.Published)
+                .OrderByDescending(c => c.RegisterCount)
+                .Take(n);
+            return await mapper(popular).ToListAsync(cancellationToken);
+        }
+
+        public async Task ToggleStatus(int id, CancellationToken cancellationToken = default)
+        {
+            await _context.Set<Course>()
+                .Where(c => c.Id == id)
+                .ExecuteUpdateAsync(c => c.SetProperty(c => c.Published, c => !c.Published), cancellationToken);
+        }
     }
 }

@@ -28,6 +28,14 @@ namespace CookingWeb.WebApi.Endpoints
               .WithName("GetCourseBySlug")
               .Produces<ApiResponse<CourseDetail>>();
 
+            routeGroupBuilder.MapGet("/popular/{limit:int}", GetNPopularCourses)
+                .WithName("GetNPopularCourses")
+                .Produces<ApiResponse<IList<CourseDto>>>();
+
+            routeGroupBuilder.MapGet("/toggle-status/{id:int}", ToggleStatus)
+                .WithName("ToggleStatus")
+                .Produces<ApiResponse<string>>();
+
             return app;
         }
 
@@ -62,6 +70,28 @@ namespace CookingWeb.WebApi.Endpoints
             return courses == null
                ? Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy khóa học có slug {slug}"))
                : Results.Ok(ApiResponse.Success(mapper.Map<CourseDetail>(courses)));
+        }
+
+        private static async Task<IResult> GetNPopularCourses(
+            int limit,
+            ICourseRepository courseRepository)
+        {
+            var courses = await courseRepository.GetNPopularCoursesAsync(limit,
+                courses => courses.ProjectToType<CourseDto>());
+            return Results.Ok(ApiResponse.Success(courses));
+        }
+
+        private static async Task<IResult> ToggleStatus(
+            int id,
+            ICourseRepository courseRepository)
+        {
+            var course = await courseRepository.GetCourseById(id);
+            if(course == null)
+            {
+                Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy khóa học có id = {id}"));
+            }
+            await courseRepository.ToggleStatus(id);
+            return Results.Ok(ApiResponse.Success("Đổi trạng thái thành công", HttpStatusCode.NoContent));
         }
     }
 }

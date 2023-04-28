@@ -17,5 +17,11 @@ namespace CookingWeb.Services.Apps.Courses
             IPagingParams pagingParams,
             Func<IQueryable<Course>, IQueryable<T>> mapper,
             CancellationToken cancellationToken = default);
+
+        Task<IList<T>> GetNPopularCoursesAsync<T>(int n, 
+            Func<IQueryable<Course>, IQueryable<T>> mapper,
+            CancellationToken cancellationToken = default);
+
+        Task ToggleStatus(int id, CancellationToken cancellationToken = default);
     }
 }
