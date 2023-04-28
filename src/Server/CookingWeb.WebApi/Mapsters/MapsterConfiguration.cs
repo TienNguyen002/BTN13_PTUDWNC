@@ -9,6 +9,7 @@ namespace CookingWeb.WebApi.Mapsters
         public void Register(TypeAdapterConfig config)
         {
             config.NewConfig<Course, CourseDto>();
+            config.NewConfig<Course, CourseDetail>();
         }
     }
 }

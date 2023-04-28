@@ -10,5 +10,6 @@
         public int DemandId { get; set; }
         public int PriceId { get; set; }
         public int NumberOfSessionsId { get; set; }
+        public int ChefId { get; set; }
     }
 }
