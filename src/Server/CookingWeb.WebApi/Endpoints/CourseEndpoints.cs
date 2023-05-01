@@ -51,6 +51,15 @@ namespace CookingWeb.WebApi.Endpoints
                 .AddEndpointFilter<ValidatorFilter<CourseEditModel>>()
                 .Produces<ApiResponse<CourseDto>>();
 
+            routeGroupBuilder.MapPut("/{id:int}", UpdateCourse)
+                .WithName("UpdateCourse")
+                .AddEndpointFilter<ValidatorFilter<CourseEditModel>>()
+                .Produces<ApiResponse<string>>();
+
+            routeGroupBuilder.MapDelete("/{id:int}", DeleteCourse)
+                .WithName("DeleteCourse")
+                .Produces<ApiResponse<string>>();
+
             return app;
         }
 
@@ -163,6 +172,50 @@ namespace CookingWeb.WebApi.Endpoints
             course.CreateDate = DateTime.Now;
             await courseRepository.AddOrUpdateCourseAsync(course);
             return Results.Ok(ApiResponse.Success(mapper.Map<CourseDto>(course),HttpStatusCode.Created));
+        }
+
+        private static async Task<IResult> UpdateCourse(
+            int id,
+            CourseEditModel model,
+            IMapper mapper, 
+            ICourseRepository courseRepository,
+            IAppRepository appRepository,
+            IMediaManager mediaManager)
+        {
+            var course = await courseRepository.GetCourseById(id);
+            if(course == null)
+            {
+                return Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound,
+                    $"Không tìm thấy khóa học có id {id}"));
+            }
+            if(await courseRepository.IsCourseSludExitedAsync(0, model.UrlSlug))
+            {
+                return Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound,
+                    $"Slug '{model.UrlSlug}' đã được sử dụng"));
+            }
+            if(await appRepository.GetDemandByIdAsync(model.DemandId) == null
+                || appRepository.GetPriceByIdAsync(model.PriceId) == null
+                || appRepository.GetNumberOfSessionsByIdAsync(model.NumberOfSessionsId) == null)
+            {
+                return Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound,
+                    $"Không tìm thấy nhu cầu / giá / số buổi có id = {id}"));
+            }
+            mapper.Map(model, course);
+            course.Id = id;
+            course.UpdateDate = DateTime.Now;
+
+            return await courseRepository.AddOrUpdateCourseAsync(course)
+               ? Results.Ok(ApiResponse.Success($"Thay đổi khóa học có id = {id} thành công"))
+               : Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy khóa học có id = {id}"));
+        }
+
+        private static async Task<IResult> DeleteCourse(
+            int id,
+            ICourseRepository courseRepository)
+        {
+            return await courseRepository.DeleteCourseByIdAsync(id)
+                ? Results.Ok(ApiResponse.Success("Xóa khóa học thành công", HttpStatusCode.NoContent))
+                : Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy khóa học có id = {id}"));
         }
     }
 }

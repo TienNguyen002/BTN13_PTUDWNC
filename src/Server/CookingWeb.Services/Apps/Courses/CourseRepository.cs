@@ -144,5 +144,23 @@ namespace CookingWeb.Services.Apps.Courses
                 _context.Add(course);
             return await _context.SaveChangesAsync(cancellationToken) > 0;
         }
+
+        public async Task<bool> DeleteCourseByIdAsync(int id, CancellationToken cancellationToken = default)
+        {
+            var courseToDelete = await _context.Set<Course>()
+                .Include(c => c.Demand)
+                .Include(c => c.Price)
+                .Include(c => c.NumberOfSessions)
+                .Include(c => c.Chef)
+                .Where(c => c.Id == id)
+                .FirstOrDefaultAsync(cancellationToken);
+            if(courseToDelete == null)
+            {
+                return false;
+            }
+            _context.Remove(courseToDelete);
+            await _context.SaveChangesAsync(cancellationToken);
+            return true;
+        }
     }
 }
