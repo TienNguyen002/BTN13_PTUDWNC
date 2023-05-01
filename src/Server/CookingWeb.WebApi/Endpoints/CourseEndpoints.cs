@@ -11,7 +11,6 @@ using Mapster;
 using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Hosting;
 using System.Net;
 
 namespace CookingWeb.WebApi.Endpoints
@@ -46,6 +45,10 @@ namespace CookingWeb.WebApi.Endpoints
                 .WithName("GetFilter")
                 .Produces<ApiResponse<CourseFilterModel>>();
 
+            routeGroupBuilder.MapGet("/get-courses-filter", GetFilteredCourses)
+                .WithName("GetFilteredCourses")
+                .Produces<ApiResponse<PaginationResult<CourseDto>>>();
+
             routeGroupBuilder.MapPost("/", AddCourse)
                 .WithName("AddCourse")
                 .AddEndpointFilter<ValidatorFilter<CourseEditModel>>()
@@ -59,6 +62,11 @@ namespace CookingWeb.WebApi.Endpoints
             routeGroupBuilder.MapDelete("/{id:int}", DeleteCourse)
                 .WithName("DeleteCourse")
                 .Produces<ApiResponse<string>>();
+
+            routeGroupBuilder.MapPost("/{id:int}/picture", SetCoursePicture)
+              .WithName("SetCoursePicture")
+              .Accepts<IFormFile>("multipart/form-data")
+              .Produces<ApiResponse<string>>();
 
             return app;
         }
@@ -145,6 +153,18 @@ namespace CookingWeb.WebApi.Endpoints
             return Results.Ok(ApiResponse.Success(model));
         }
 
+        private static async Task<IResult> GetFilteredCourses(
+            [AsParameters] CourseFilterModel model,
+            IMapper mapper,
+            ICourseRepository courseRepository)
+        {
+            var courseQuery = mapper.Map<CourseQuery>(model);
+            var coursesList = await courseRepository.GetPagedCoursesAsync(courseQuery, model,
+                courses => courses.ProjectToType<CourseDto>());
+            var paginationResult = new PaginationResult<CourseDto>(coursesList);
+            return Results.Ok(ApiResponse.Success(paginationResult));
+        }
+
         private static async Task<IResult> AddCourse(
             CourseEditModel model,
             IMapper mapper,
@@ -216,6 +236,23 @@ namespace CookingWeb.WebApi.Endpoints
             return await courseRepository.DeleteCourseByIdAsync(id)
                 ? Results.Ok(ApiResponse.Success("Xóa khóa học thành công", HttpStatusCode.NoContent))
                 : Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound, $"Không tìm thấy khóa học có id = {id}"));
+        }
+
+        private static async Task<IResult> SetCoursePicture(
+            int id, 
+            IFormFile imageFile,
+            ICourseRepository courseRepository,
+            IMediaManager mediaManager)
+        {
+            var imageUrl = await mediaManager.SaveFileAsync(
+                imageFile.OpenReadStream(),
+                imageFile.FileName, imageFile.ContentType);
+            if (string.IsNullOrWhiteSpace(imageUrl))
+            {
+                return Results.Ok(ApiResponse.Fail(HttpStatusCode.BadRequest, "Không lưu được tập tin"));
+            }
+            await courseRepository.SetImageCourseAsync(id, imageUrl);
+            return Results.Ok(ApiResponse.Success(imageUrl));
         }
     }
 }

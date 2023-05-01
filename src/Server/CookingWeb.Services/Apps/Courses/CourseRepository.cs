@@ -162,5 +162,14 @@ namespace CookingWeb.Services.Apps.Courses
             await _context.SaveChangesAsync(cancellationToken);
             return true;
         }
+
+        public async Task<bool> SetImageCourseAsync(int id, string imageUrl, CancellationToken cancellationToken = default)
+        {
+            return await _context.Set<Course>()
+                .Where(c => c.Id == id)
+                .ExecuteUpdateAsync(c => c.SetProperty(c => c.ImageUrl, c => imageUrl)
+                                        .SetProperty(c => c.UpdateDate, c => DateTime.Now),
+                                        cancellationToken) > 0;
+            }
     }
 }

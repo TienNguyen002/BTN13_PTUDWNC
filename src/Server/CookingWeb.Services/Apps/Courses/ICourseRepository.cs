@@ -31,5 +31,7 @@ namespace CookingWeb.Services.Apps.Courses
         Task<bool> AddOrUpdateCourseAsync(Course course, CancellationToken cancellationToken = default);
 
         Task<bool> DeleteCourseByIdAsync(int id, CancellationToken cancellationToken = default);
+
+        Task<bool> SetImageCourseAsync(int id, string imageUrl, CancellationToken cancellationToken = default);
     }
 }
