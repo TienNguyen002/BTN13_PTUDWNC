@@ -11,9 +11,11 @@ namespace CookingWeb.Services.Apps.Courses
 {
     public interface ICourseRepository
     {
+        Task<IList<CourseItem>> GetCoursesAsync(CancellationToken cancellationToken = default);
+
         Task<Course> GetCourseById(int id, bool includeDetails = false, CancellationToken cancellationToken = default);
 
-        Task<bool> IsCourseSludExitedAsync(int id, string slug, CancellationToken cancellationToken = default);
+        Task<bool> IsCourseSlugExitedAsync(int id, string slug, CancellationToken cancellationToken = default);
 
         Task<Course> GetCourseBySlug(string slug, bool includeDetails = false, CancellationToken cancellationToken = default);
 

@@ -22,6 +22,7 @@ var app = builder.Build();
 
     app.MapCategoryEndpoints();
     app.MapCourseEndPoints();
+    app.MapRecipeEndPoints();
 
     app.Run();
 }

@@ -172,7 +172,7 @@ namespace CookingWeb.WebApi.Endpoints
             IAppRepository appRepository,
             IMediaManager mediaManager)
         {
-            if(await courseRepository.IsCourseSludExitedAsync(0, model.UrlSlug))
+            if(await courseRepository.IsCourseSlugExitedAsync(0, model.UrlSlug))
             {
                 return Results.Ok(ApiResponse.Fail(HttpStatusCode.Conflict, $"Slug '{model.UrlSlug}' đã được sử dụng"));
             }
@@ -208,7 +208,7 @@ namespace CookingWeb.WebApi.Endpoints
                 return Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound,
                     $"Không tìm thấy khóa học có id {id}"));
             }
-            if(await courseRepository.IsCourseSludExitedAsync(0, model.UrlSlug))
+            if(await courseRepository.IsCourseSlugExitedAsync(0, model.UrlSlug))
             {
                 return Results.Ok(ApiResponse.Fail(HttpStatusCode.NotFound,
                     $"Slug '{model.UrlSlug}' đã được sử dụng"));

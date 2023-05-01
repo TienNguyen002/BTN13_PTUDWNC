@@ -9,9 +9,9 @@ namespace CookingWeb.WebApi.Validations
         {
             RuleFor(c => c.Title)
                 .NotEmpty()
-                .WithMessage("Tên khóa học không được để trống")
+                .WithMessage("Tiêu đề không được để trống")
                 .MaximumLength(1000)
-                .WithMessage("Tên khóa học chỉ tối đa 1000 ký tự");
+                .WithMessage("Tiêu đề chỉ tối đa 1000 ký tự");
 
             RuleFor(c => c.ShortDescription)
                 .NotEmpty()

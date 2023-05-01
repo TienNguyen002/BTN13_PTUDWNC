@@ -23,6 +23,21 @@ namespace CookingWeb.Services.Apps.Courses
             _memoryCache = memoryCache;
         }
 
+        public async Task<IList<CourseItem>> GetCoursesAsync(CancellationToken cancellationToken = default)
+        {
+            IQueryable<Course> courses = _context.Set<Course>();
+            return await courses
+                .OrderBy(c => c.Title)
+                .Select(c => new CourseItem()
+                {
+                    Id = c.Id,
+                    Title = c.Title,
+                    ShortDescription = c.ShortDescription,
+                    UrlSlug = c.UrlSlug,
+                })
+                .ToListAsync(cancellationToken);
+        }
+
         public async Task<Course> GetCourseById(int id, bool includeDetails = false, CancellationToken cancellationToken = default)
         {
             if(!includeDetails)
@@ -38,7 +53,7 @@ namespace CookingWeb.Services.Apps.Courses
                 .FirstOrDefaultAsync(cancellationToken);
         }
 
-        public async Task<bool> IsCourseSludExitedAsync(int id, string slug, CancellationToken cancellationToken = default)
+        public async Task<bool> IsCourseSlugExitedAsync(int id, string slug, CancellationToken cancellationToken = default)
         {
             return await _context.Set<Course>()
                 .AnyAsync(c => c.Id != id && c.UrlSlug == slug, cancellationToken);

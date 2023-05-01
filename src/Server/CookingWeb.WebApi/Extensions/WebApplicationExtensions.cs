@@ -8,6 +8,7 @@ using CookingWeb.Data.Seeders;
 using CookingWeb.Services.Apps.Categories;
 using CookingWeb.Services.Apps.Courses;
 using CookingWeb.Services.Apps.Other;
+using CookingWeb.Services.Apps.Recipes;
 
 namespace TatBlog.WebApi.Extensions
 {
@@ -28,6 +29,7 @@ namespace TatBlog.WebApi.Extensions
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<ICourseRepository, CourseRepository>();
             builder.Services.AddScoped<IAppRepository, AppRepository>();
+            builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
 
             return builder;
         }
