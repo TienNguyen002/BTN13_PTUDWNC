@@ -1,4 +1,5 @@
-﻿using CookingWeb.Core.Collections;
+﻿using Carter;
+using CookingWeb.Core.Collections;
 using CookingWeb.Core.DTO.Course;
 using CookingWeb.Core.Entities;
 using CookingWeb.Services.Apps.Courses;
@@ -15,9 +16,9 @@ using System.Net;
 
 namespace CookingWeb.WebApi.Endpoints
 {
-    public static class CourseEndpoints
+    public class CourseEndpoints : ICarterModule
     {
-        public static WebApplication MapCourseEndPoints(this WebApplication app)
+        public void AddRoutes(IEndpointRouteBuilder app)
         {
             var routeGroupBuilder = app.MapGroup("/api/courses");
 
@@ -67,8 +68,6 @@ namespace CookingWeb.WebApi.Endpoints
               .WithName("SetCoursePicture")
               .Accepts<IFormFile>("multipart/form-data")
               .Produces<ApiResponse<string>>();
-
-            return app;
         }
 
         private static async Task<IResult> GetCourses(

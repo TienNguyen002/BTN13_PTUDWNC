@@ -4,6 +4,7 @@ using CookingWeb.WebApi.Mapsters;
 using CookingWeb.WebApi.Validations;
 using TatBlog.WebApi.Extensions;
 using CookingWeb.WebApi.Endpoints;
+using Carter;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -20,9 +21,7 @@ var app = builder.Build();
     app.SetupRequestPipeline();
     app.UseDataSeeder();
 
-    app.MapCategoryEndpoints();
-    app.MapCourseEndPoints();
-    app.MapRecipeEndPoints();
+    app.MapCarter();
 
     app.Run();
 }
