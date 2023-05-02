@@ -27,5 +27,11 @@ namespace CookingWeb.Services.Apps.Other
 
         Task<NumberOfSessions> GetNumberOfSessionsByIdAsync(int id, CancellationToken cancellationToken = default);
         #endregion
+
+        #region Topic
+        Task<IList<TopicItem>> GetTopicsAsync(CancellationToken cancellationToken = default);
+
+        Task<Topic> GetTopicByIdAsync(int id, CancellationToken cancellationToken = default);
+        #endregion
     }
 }

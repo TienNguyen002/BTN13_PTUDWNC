@@ -1,6 +1,6 @@
-﻿namespace CookingWeb.WebApi.Models.NumberOfSessions
+﻿namespace CookingWeb.WebApi.Models.Others
 {
-    public class NumberOfSessionDto
+    public class DemandDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

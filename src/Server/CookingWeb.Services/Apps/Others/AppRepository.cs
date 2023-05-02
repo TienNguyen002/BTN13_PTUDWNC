@@ -78,13 +78,13 @@ namespace CookingWeb.Services.Apps.Other
         {
             IQueryable<NumberOfSessions> sessions = _context.Set<NumberOfSessions>();
             return await sessions
-                .OrderBy(p => p.Name)
-                .Select(p => new NumberOfSessionsItem()
+                .OrderBy(n => n.Name)
+                .Select(n => new NumberOfSessionsItem()
                 {
-                    Id = p.Id,
-                    Name = p.Name,
-                    UrlSlug = p.UrlSlug,
-                    CoursesCount = p.Courses.Count(c => c.Published)
+                    Id = n.Id,
+                    Name = n.Name,
+                    UrlSlug = n.UrlSlug,
+                    CoursesCount = n.Courses.Count(c => c.Published)
                 })
                 .OrderByDescending(p => p.CoursesCount)
                 .ToListAsync(cancellationToken);
@@ -95,6 +95,32 @@ namespace CookingWeb.Services.Apps.Other
             return await _context.Set<NumberOfSessions>()
                 .Include(n => n.Courses)
                 .Where(n => n.Id == id)
+                .FirstOrDefaultAsync(cancellationToken);
+        }
+        #endregion
+
+        #region Topic
+        public async Task<IList<TopicItem>> GetTopicsAsync(CancellationToken cancellationToken = default)
+        {
+            IQueryable<Topic> topics = _context.Set<Topic>();
+            return await topics
+                .OrderBy(t => t.Name)
+                .Select(t => new TopicItem()
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                    UrlSlug = t.UrlSlug,
+                    CategoriesCount = t.Categories.Count()
+                })
+                .OrderByDescending(p => p.CategoriesCount)
+                .ToListAsync(cancellationToken);
+        }
+
+        public async Task<Topic> GetTopicByIdAsync(int id, CancellationToken cancellationToken = default)
+        {
+            return await _context.Set<Topic>()
+                .Include(t => t.Categories)
+                .Where(t => t.Id == id)
                 .FirstOrDefaultAsync(cancellationToken);
         }
         #endregion

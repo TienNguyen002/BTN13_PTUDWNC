@@ -1,5 +1,4 @@
 ﻿using CookingWeb.Core.Contracts;
-using CookingWeb.Core.DTO.Course;
 using CookingWeb.Core.DTO.Recipe;
 using CookingWeb.Core.Entities;
 using CookingWeb.Data.Contexts;
@@ -66,9 +65,9 @@ namespace CookingWeb.Services.Apps.Recipes
             if(!string.IsNullOrEmpty(query.Keyword))
             {
                 recipeQuery = recipeQuery.Where(r => r.Title.Contains(query.Keyword)
-                || r.ShortDesciption.Contains(query.Keyword)
+                || r.ShortDescription.Contains(query.Keyword)
                 || r.Description.Contains(query.Keyword)
-                || r.Description.Contains(query.Keyword));
+                || r.UrlSlug.Contains(query.Keyword));
             }
             if(query.AuthorId > 0)
             {

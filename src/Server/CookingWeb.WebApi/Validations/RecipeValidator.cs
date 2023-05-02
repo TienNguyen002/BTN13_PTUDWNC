@@ -13,7 +13,7 @@ namespace CookingWeb.WebApi.Validations
                 .MaximumLength(1000)
                 .WithMessage("Tiêu đề chỉ tối đa 1000 ký tự");
 
-            RuleFor(r => r.ShortDesciption)
+            RuleFor(r => r.ShortDescription)
                 .NotEmpty()
                 .WithMessage("Giới thiệu không được để trống");
 

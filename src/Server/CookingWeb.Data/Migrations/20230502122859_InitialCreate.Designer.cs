@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CookingWeb.Data.Migrations
 {
     [DbContext(typeof(WebDbContext))]
-    [Migration("20230427081411_InitialCreate")]
+    [Migration("20230502122859_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -313,7 +313,7 @@ namespace CookingWeb.Data.Migrations
                     b.Property<bool>("Published")
                         .HasColumnType("bit");
 
-                    b.Property<string>("ShortDesciption")
+                    b.Property<string>("ShortDescription")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Step")

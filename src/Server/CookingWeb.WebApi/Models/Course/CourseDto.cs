@@ -1,7 +1,5 @@
 ﻿using CookingWeb.WebApi.Models.Chef;
-using CookingWeb.WebApi.Models.Demand;
-using CookingWeb.WebApi.Models.NumberOfSessions;
-using CookingWeb.WebApi.Models.Price;
+using CookingWeb.WebApi.Models.Others;
 
 namespace CookingWeb.WebApi.Models.Course
 {

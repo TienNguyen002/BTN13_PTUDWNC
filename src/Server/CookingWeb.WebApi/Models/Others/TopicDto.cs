@@ -1,6 +1,6 @@
-﻿namespace CookingWeb.WebApi.Models.Price
+﻿namespace CookingWeb.WebApi.Models.Others
 {
-    public class PriceDto
+    public class TopicDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

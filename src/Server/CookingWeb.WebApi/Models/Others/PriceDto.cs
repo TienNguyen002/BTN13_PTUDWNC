@@ -1,6 +1,6 @@
-﻿namespace CookingWeb.WebApi.Models.Demand
+﻿namespace CookingWeb.WebApi.Models.Others
 {
-    public class DemandDto
+    public class PriceDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

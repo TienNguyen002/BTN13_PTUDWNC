@@ -1,6 +1,5 @@
 ﻿using Carter;
 using CookingWeb.Core.Collections;
-using CookingWeb.Core.DTO.Course;
 using CookingWeb.Core.DTO.Recipe;
 using CookingWeb.Core.Entities;
 using CookingWeb.Services.Apps.Courses;
@@ -9,7 +8,6 @@ using CookingWeb.Services.Apps.Recipes;
 using CookingWeb.Services.Media;
 using CookingWeb.WebApi.Filters;
 using CookingWeb.WebApi.Models;
-using CookingWeb.WebApi.Models.Course;
 using CookingWeb.WebApi.Models.Recipe;
 using Mapster;
 using MapsterMapper;

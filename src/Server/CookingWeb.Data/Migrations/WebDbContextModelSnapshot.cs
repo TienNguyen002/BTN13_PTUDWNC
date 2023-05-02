@@ -310,7 +310,7 @@ namespace CookingWeb.Data.Migrations
                     b.Property<bool>("Published")
                         .HasColumnType("bit");
 
-                    b.Property<string>("ShortDesciption")
+                    b.Property<string>("ShortDescription")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Step")

@@ -10,6 +10,7 @@ using CookingWeb.Services.Apps.Courses;
 using CookingWeb.Services.Apps.Other;
 using CookingWeb.Services.Apps.Recipes;
 using Carter;
+using CookingWeb.Services.Apps.Posts;
 
 namespace TatBlog.WebApi.Extensions
 {
@@ -32,6 +33,7 @@ namespace TatBlog.WebApi.Extensions
             builder.Services.AddScoped<ICourseRepository, CourseRepository>();
             builder.Services.AddScoped<IAppRepository, AppRepository>();
             builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
+            builder.Services.AddScoped<IPostRepository, PostRepository>();
 
             return builder;
         }
