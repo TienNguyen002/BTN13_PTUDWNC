@@ -30,7 +30,7 @@ namespace CookingWeb.WebApi.Endpoints
                 .WithName("GetCourseById")
                 .Produces<ApiResponse<CourseDetail>>();
 
-            routeGroupBuilder.MapGet("/{slug:regex(^[a-z0-9_-]+$)}/courses", GetCourseBySlug)
+            routeGroupBuilder.MapGet("/{slug:regex(^[a-z0-9_-]+$)}", GetCourseBySlug)
               .WithName("GetCourseBySlug")
               .Produces<ApiResponse<CourseDetail>>();
 
