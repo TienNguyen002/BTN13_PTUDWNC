@@ -9,3 +9,7 @@ export function getPosts(
 export function getPostBySlug(slug){
     return get_api(`https://localhost:7029/api/posts/${slug}`)
 }
+
+export function getFilter(){
+    return get_api(`https://localhost:7029/api/posts/get-filter`)
+}

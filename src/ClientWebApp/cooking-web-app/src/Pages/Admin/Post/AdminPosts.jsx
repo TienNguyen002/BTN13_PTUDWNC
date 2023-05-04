@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { getPosts } from "../../../Services/PostRepository";
 import Loading from "../../../Components/Shared/Loading"
 import "../Admin.scss"
+import PostFilterPane from "../../../Components/Admin/Post/PostFilterPane";
 
 const AdminPost = () => {
     const [postsList, setPostsList] = useState([]);
@@ -26,6 +27,7 @@ const AdminPost = () => {
     return(
         <>
             <h1>Danh sách bài viết</h1>
+            <PostFilterPane/>
             {isVisibleLoading ? <Loading/> :
                 <Table striped responsive bordered>
                     <thead className="table text-center">

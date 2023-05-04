@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { getRecipes } from "../../../Services/RecipeRepository";
 import Loading from "../../../Components/Shared/Loading"
 import "../Admin.scss"
+import RecipeFilterPane from "../../../Components/Admin/Recipe/RecipeFilterPane";
 
 const AdminRecipe = () => {
     const [recipesList, setRecipesList] = useState([]);
@@ -26,13 +27,14 @@ const AdminRecipe = () => {
     return(
         <>
             <h1>Danh sách công thức</h1>
+            <RecipeFilterPane/>
             {isVisibleLoading ? <Loading/> :
                 <Table striped responsive bordered>
                     <thead className="table text-center">
                         <tr className="table-title">
                             <th>Tiêu đề</th>
                             <th>Tác giả</th>
-                            <th>Thuộc hóa học</th>
+                            <th>Thuộc khóa học</th>
                             <th>Trạng thái</th>
                         </tr>
                     </thead>

@@ -27,7 +27,7 @@ const AdminCourse = () => {
     return(
         <>
             <h1>Danh sách khóa học</h1>
-            {/* <CourseFilterPane/> */}
+            <CourseFilterPane/>
             {isVisibleLoading ? <Loading/> :
                 <Table striped responsive bordered>
                     <thead className="table text-center">

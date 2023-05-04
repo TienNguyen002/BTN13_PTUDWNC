@@ -2,20 +2,18 @@ import { useEffect, useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom'
-import { getFilter } from '../../../Services/CourseRepository'
+import { getFilter } from '../../../Services/PostRepository'
 
-const CourseFilterPane = () => {
+const PostFilterPane = () => {
     const current = new Date(),
         [keyword, setKeyword] = useState(''),
-        [demandId, setDemandId] = useState(''),
-        [priceId, setPriceId] = useState(''),
-        [numberOfSessionsId, setNumberOfSessionsId] = useState(''),
+        [authorId, setAuthorId] = useState(''),
+        [categoryId, setCategoryId] = useState(''),
         [year, setYear] = useState(current.getFullYear()),
         [month, setMonth] = useState(current.getMonth()),
         [filter, setFilter] = useState({
-            demandList: [],
-            priceList: [],
-            numberOfSessionsList: [],
+            authorList: [],
+            categoryList: [],
             monthList: []
         });
 
@@ -31,16 +29,14 @@ const CourseFilterPane = () => {
         getFilter().then(data => {
             if (data) {
                 setFilter({
-                    demandList: data.demandList,
-                    priceList: data.priceList,
-                    numberOfSessionsList: data.numberOfSessionsList,
+                    authorList: data.authorList,
+                    categoryList: data.categoryList,
                     monthList: data.monthList
                 });
             } else {
                 setFilter({
-                    demandList: [],
-                    priceList: [],
-                    numberOfSessionsList: [],
+                    authorList: [],
+                    categoryList: [],
                     monthList: []
                 });
             }
@@ -64,43 +60,29 @@ const CourseFilterPane = () => {
             </Form.Group>
             <Form.Group className='col-auto'>
                 <Form.Label className='visually-hidden'>
-                    DemandId
+                    AuthorId
                 </Form.Label>
                 <Form.Select
-                    name='demandId'
-                    value={demandId}
-                    onChange={e => setDemandId(e.target.value)}
-                    title='Demand Id'>
-                    <option value=''>-- Chọn nhu cầu --</option>
-                    {filter.demandList && filter.demandList.map((item, index) =>
+                    name='authorId'
+                    value={authorId}
+                    onChange={e => setAuthorId(e.target.value)}
+                    title='Author Id'>
+                    <option value=''>-- Chọn tác giả --</option>
+                    {filter.authorList && filter.authorList.map((item, index) =>
                         <option key={index} value={item.value}>{item.text}</option>)}
                 </Form.Select>
             </Form.Group>
             <Form.Group className='col-auto'>
                 <Form.Label className='visually-hidden'>
-                    PriceId
+                    CategoryId
                 </Form.Label>
                 <Form.Select
-                    name='priceId'
-                    value={priceId}
-                    onChange={e => setPriceId(e.target.value)}
-                    title='Price Id'>
-                    <option value=''>-- Chọn giá --</option>
-                    {filter.priceList && filter.priceList.map((item, index) =>
-                        <option key={index} value={item.value}>{item.text}</option>)}
-                </Form.Select>
-            </Form.Group>
-            <Form.Group className='col-auto'>
-                <Form.Label className='visually-hidden'>
-                    NumberOfSessionsId
-                </Form.Label>
-                <Form.Select
-                    name='numberofsessionsId'
-                    value={numberOfSessionsId}
-                    onChange={e => setNumberOfSessionsId(e.target.value)}
-                    title='Number Of Sessions Id'>
-                    <option value=''>-- Chọn số buổi --</option>
-                    {filter.numberOfSessionsList && filter.numberOfSessionsList.map((item, index) =>
+                    name='categoryId'
+                    value={categoryId}
+                    onChange={e => setCategoryId(e.target.value)}
+                    title='Category Id'>
+                    <option value=''>-- Chọn chủ đề --</option>
+                    {filter.categoryList && filter.categoryList.map((item, index) =>
                         <option key={index} value={item.value}>{item.text}</option>)}
                 </Form.Select>
             </Form.Group>
@@ -140,4 +122,4 @@ const CourseFilterPane = () => {
     )
 }
 
-export default CourseFilterPane;
+export default PostFilterPane;

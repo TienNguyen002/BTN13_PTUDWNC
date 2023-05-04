@@ -9,3 +9,7 @@ export function getRecipes(
 export function getRecipeBySlug(slug){
     return get_api(`https://localhost:7029/api/recipes/${slug}`)
 }
+
+export function getFilter(){
+    return get_api(`https://localhost:7029/api/recipes/get-filter`)
+}
