@@ -1,28 +1,35 @@
 import React, { useState, useEffect} from "react";
 import Table from "react-bootstrap/Table";
 import { Link } from "react-router-dom";
-import { getPosts } from "../../../Services/PostRepository";
+import { getPostsFilter } from "../../../Services/PostRepository";
 import Loading from "../../../Components/Shared/Loading"
 import "../Admin.scss"
 import PostFilterPane from "../../../Components/Admin/Post/PostFilterPane";
+import { useSelector } from "react-redux";
 
 const AdminPost = () => {
-    const [postsList, setPostsList] = useState([]);
-    const [isVisibleLoading, setIsVisibleLoading] = useState(true); 
+    const [postsList, setPostsList] = useState([]),
+    [isVisibleLoading, setIsVisibleLoading] = useState(true),
+    postFilter = useSelector(state => state.postFilter);
 
     let p = 1, ps = 10;
 
     useEffect(() => {
         document.title = "Danh sách bài viết";
 
-        getPosts( ps, p).then(data => {
+        getPostsFilter(postFilter.keyword,
+            postFilter.authorId,
+            postFilter.categoryId,
+            postFilter.year,
+            postFilter.month,
+            ps, p).then(data => {
             if(data)
                 setPostsList(data.items);
             else
                 setPostsList([]);
             setIsVisibleLoading(false);
         })
-    }, [ p, ps]);
+    }, [postFilter, p, ps]);
 
     return(
         <>

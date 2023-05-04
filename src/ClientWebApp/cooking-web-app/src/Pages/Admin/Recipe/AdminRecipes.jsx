@@ -1,28 +1,35 @@
 import React, { useState, useEffect} from "react";
 import Table from "react-bootstrap/Table";
 import { Link } from "react-router-dom";
-import { getRecipes } from "../../../Services/RecipeRepository";
+import { getRecipesFilter } from "../../../Services/RecipeRepository";
 import Loading from "../../../Components/Shared/Loading"
 import "../Admin.scss"
 import RecipeFilterPane from "../../../Components/Admin/Recipe/RecipeFilterPane";
+import { useSelector } from "react-redux";
 
 const AdminRecipe = () => {
-    const [recipesList, setRecipesList] = useState([]);
-    const [isVisibleLoading, setIsVisibleLoading] = useState(true); 
+    const [recipesList, setRecipesList] = useState([]),
+    [isVisibleLoading, setIsVisibleLoading] = useState(true),
+    recipeFilter = useSelector(state => state.recipeFilter);
 
     let p = 1, ps = 10;
 
     useEffect(() => {
         document.title = "Danh sách công thức";
 
-        getRecipes( ps, p).then(data => {
+        getRecipesFilter(recipeFilter.keyword,
+            recipeFilter.authorId,
+            recipeFilter.courseId,
+            recipeFilter.year,
+            recipeFilter.month,
+             ps, p).then(data => {
             if(data)
                 setRecipesList(data.items);
             else
                 setRecipesList([]);
             setIsVisibleLoading(false);
         })
-    }, [ p, ps]);
+    }, [recipeFilter, p, ps]);
 
     return(
         <>
@@ -54,7 +61,7 @@ const AdminRecipe = () => {
                         ) : 
                         <tr>
                             <td>
-                                <h4>Không tìm thấy khóa học nào</h4>
+                                <h4>Không tìm thấy công thức nào</h4>
                             </td>
                         </tr>
                     }

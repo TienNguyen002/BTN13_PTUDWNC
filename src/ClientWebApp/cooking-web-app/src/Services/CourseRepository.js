@@ -18,10 +18,11 @@ export function getFilter(){
     return get_api(`https://localhost:7029/api/courses/get-filter`)
 }
 
-export function getCoursesFilter(keyword = '',
+export function getCoursesFilter(
+    keyword = '',
     demandId = '',
     priceId = '',
-    numberofsessionsId = '',
+    numberOfSessionsId = '',
     year = '',
     month = '',
     pageSize = 10,
@@ -29,12 +30,12 @@ export function getCoursesFilter(keyword = '',
     sortColumn = '',
     sortOrder = ''){
         let url = new URL(`https://localhost:7029/api/courses/get-courses-filter`);
-        keyword !== '' & url.searchParams.append('Keyword', keyword);
-        demandId !== '' & url.searchParams.append('DemandId', demandId);
-        priceId !== '' & url.searchParams.append('PriceId', priceId);
-        numberofsessionsId !== '' && url.searchParams.append('NumberOfSessionsId', numberofsessionsId);
-        year !== '' && url.searchParams.append('CreateYear', year);
+        keyword !== '' && url.searchParams.append('Keyword', keyword);
+        demandId !== '' && url.searchParams.append('DemandId', demandId);
+        priceId !== '' && url.searchParams.append('PriceId', priceId);
+        numberOfSessionsId !== '' && url.searchParams.append('NumberOfSessionsId', numberOfSessionsId);
         month !== '' && url.searchParams.append('CreateMonth', month);
+        year !== '' && url.searchParams.append('CreateYear', year);
         sortColumn !== '' && url.searchParams.append('SortColumn', sortColumn);
         sortOrder !== '' && url.searchParams.append('SortOrder', sortOrder);
         url.searchParams.append('PageSize', pageSize);

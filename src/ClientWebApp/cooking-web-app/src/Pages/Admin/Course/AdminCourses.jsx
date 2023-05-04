@@ -1,28 +1,38 @@
 import React, { useState, useEffect} from "react";
 import Table from "react-bootstrap/Table";
-import { Link } from "react-router-dom";
-import { getCourses } from "../../../Services/CourseRepository";
+import { Link, useParams } from "react-router-dom";
+import { getCoursesFilter } from "../../../Services/CourseRepository";
 import Loading from "../../../Components/Shared/Loading"
 import "../Admin.scss"
 import CourseFilterPane from "../../../Components/Admin/Course/CourseFilterPane";
+import { isInteger } from "../../../Utils/Utils"
+import { useSelector } from "react-redux";
 
 const AdminCourse = () => {
-    const [coursesList, setCoursesList] = useState([]);
-    const [isVisibleLoading, setIsVisibleLoading] = useState(true); 
+    const [coursesList, setCoursesList] = useState([]),
+    [isVisibleLoading, setIsVisibleLoading] = useState(true),
+    courseFilter = useSelector(state => state.courseFilter);
 
-    let p = 1, ps = 10;
+    let {id} = useParams(), 
+    p = 1, ps = 10;
 
     useEffect(() => {
         document.title = "Danh sách khóa học";
 
-        getCourses( ps, p).then(data => {
+        getCoursesFilter( courseFilter.keyword,
+            courseFilter.demandId,
+            courseFilter.priceId,
+            courseFilter.numberOfSessionsId,
+            courseFilter.year,
+            courseFilter.month,
+            ps, p).then(data => {
             if(data)
                 setCoursesList(data.items);
             else
                 setCoursesList([]);
             setIsVisibleLoading(false);
         })
-    }, [ p, ps]);
+    }, [courseFilter, p, ps]);
 
     return(
         <>

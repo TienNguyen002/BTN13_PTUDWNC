@@ -1,9 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { reducer } from './Reducer'
+import { courseReducer } from './Course/Reducer'
+import { recipeReducer } from "./Recipe/Reducer";
+import { postReducer} from "./Post/Reducer"
 
 const store = configureStore({
     reducer: {
-        courseFilter: reducer,
+        courseFilter: courseReducer,
+        recipeFilter: recipeReducer,
+        postFilter: postReducer,
     },
 });
 

@@ -2,15 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     keyword: '',
-    demandId: '',
-    priceId: '',
-    numberofsessionsId: '',
+    authorId: '',
+    categoryId: '',
     year: '',
     month: '',
 };
 
-const courseFilterReducer = createSlice({
-    name: 'courseFilter',
+const postFilterReducer = createSlice({
+    name: 'postFilter',
     initialState,
     reducers: {
         reset: (state, action) => {
@@ -22,22 +21,16 @@ const courseFilterReducer = createSlice({
                 keyword: action.payload
             };
         },
-        updateDemandId: (state, action) => {
+        updateAuthorId: (state, action) => {
             return {
                 ...state,
-                demandId: action.payload
+                authorId: action.payload
             }
         },
-        updatePriceId: (state, action) => {
+        updateCategoryId: (state, action) => {
             return {
                 ...state,
-                priceId: action.payload
-            }
-        },
-        updateNumberOfSessionsId: (state, action) => {
-            return {
-                ...state,
-                numberofsessionsId: action.payload
+                categoryId: action.payload
             }
         },
         updateMonth: (state, action) => {
@@ -58,11 +51,10 @@ const courseFilterReducer = createSlice({
 export const {
     reset,
     updateKeyword,
-    updateDemandId,
-    updatePriceId,
-    updateNumberOfSessionsId,
+    updateAuthorId,
+    updateCategoryId,
     updateMonth,
     updateYear,
-} = courseFilterReducer.actions;
+} = postFilterReducer.actions;
 
-export const reducer = courseFilterReducer.reducer;
+export const postReducer = postFilterReducer.reducer;
