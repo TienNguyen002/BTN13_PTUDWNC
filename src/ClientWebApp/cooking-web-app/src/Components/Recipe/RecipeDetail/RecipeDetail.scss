@@ -1,0 +1,20 @@
+.recipe-content{
+    &-title{
+        color: red;
+    }
+    &-img{
+        max-width: 2000px;
+        max-height: 2000px;
+        padding-left: 20%;
+    }
+    &-ingredient{
+        &-title{
+            color:green;
+        }
+    }
+    &-step{
+        &-title{
+            color:green;
+        }
+    }
+}

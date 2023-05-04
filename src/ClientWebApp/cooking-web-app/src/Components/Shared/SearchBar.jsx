@@ -10,7 +10,7 @@ const SearchBar = () => {
   
     const handleSubmit = (e) => {
       e.preventDefault();
-      window.location = `/blog?k=${keyword}`;
+      window.location = `/courses?k=${keyword}`;
     }
   
     return(

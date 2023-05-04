@@ -11,12 +11,12 @@ const Social = () => {
             <div className="row">
                 <div className="facebook">
                     <Link to={`https://www.facebook.com/Junn.Nguy3n`}>
-                        <img src={facebook} className="facebook"/>
+                        <img src={facebook} className="facebook" alt="facebook"/>
                     </Link>
                 </div>
                 <div className="youtube">
                     <Link to={``}>
-                        <img src={youtube} className="youtube"/>
+                        <img src={youtube} className="youtube" alt="youtube"/>
                     </Link>
                 </div>
                 <div>

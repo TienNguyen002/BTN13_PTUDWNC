@@ -6,21 +6,38 @@ import Food from "../Pages/User/Food";
 import DailyMenu from "../Pages/User/DailyMenu";
 import KitchenTips from "../Pages/User/KitchenTips"
 import News from "../Pages/User/News";
-import RSS from "../Pages/User/RSS";
+import CourseDetail from "../Components/Course/CourseDetail/CourseDetail"
+import RecipeDetail from "../Components/Recipe/RecipeDetail/RecipeDetail";
+import PostDetail from "../Components/Post/PostDetail/PostDetail"
+import AdminLayout from "../Pages/Admin/AdminLayout";
+import AdminCourse from "../Pages/Admin/Course/AdminCourses";
+import BadRequest from "../Pages/Shared/BadRequest";
+import NotFound from "../Pages/Shared/NotFound"
+import AdminRecipe from "../Pages/Admin/Recipe/AdminRecipes";
+import AdminPost from "../Pages/Admin/Post/AdminPosts";
 
 const Router = () => {
     return(
         <BrowserRouter>
             <Routes>
+                <Route path="/400" element={<BadRequest/>}/>
+                <Route path="/*" element={<NotFound/>}/>
                 <Route path="/" element={<Layout/>}>
                     <Route path="/" element={<Home/>}/>
                     <Route path="/hoc-nau-an" element={<Cooking/>}/>
+                    <Route path="/khoa-hoc/:slug" element={<CourseDetail/>}/>
                     <Route path="/mon-an-ngon" element={<Food/>}/>
+                    <Route path="/cong-thuc/:slug" element={<RecipeDetail/>}/>
                     <Route path="/thuc-don-moi-ngay" element={<DailyMenu/>}/>
+                    <Route path="/thuc-don/:slug" element={<PostDetail/>}/>
                     <Route path="/meo-nha-bep" element={<KitchenTips/>}/>
                     <Route path="/tin-tuc" element={<News/>}/>
-                    <Route path="/rss" element={<RSS/>}/>
                 </Route>
+                <Route path="/admin" element={<AdminLayout/>}>
+                    <Route path="/admin/courses" element={<AdminCourse/>}/>   
+                    <Route path="/admin/recipes" element={<AdminRecipe/>}/>   
+                    <Route path="/admin/posts" element={<AdminPost/>}/>   
+                </Route>          
             </Routes>
         </BrowserRouter>
     )

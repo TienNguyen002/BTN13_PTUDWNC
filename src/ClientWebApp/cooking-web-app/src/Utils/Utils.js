@@ -10,3 +10,7 @@ export function useQuery(){
     return React.useMemo(() => 
     new URLSearchParams(search), [search]);
 }
+
+export function isInteger(str){
+    return Number.isInteger(Number(str)) && Number(str) >= 0;
+}

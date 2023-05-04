@@ -53,9 +53,9 @@ const PopularCourse = ({ courseItem }) => {
                                     <div className="container" key={index}>
                                         <div className="course-header">
                                             <div className="course-header-item text-center">
-                                                <Link to={`/hoc-nau-an/${value.urlSlug}`} className="course-header-item">
+                                                <Link to={`/khoa-hoc/${value.urlSlug}`} className="course-header-item">
                                                     <img
-                                                        src={imageUrl}
+                                                        src={`https://localhost:7029/${value.imageUrl}`}
                                                         alt={value.name}
                                                         className="course-header-item-img"
                                                     />

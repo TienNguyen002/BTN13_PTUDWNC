@@ -1,0 +1,10 @@
+.post-content{
+    &-title{
+        color: red;
+    }
+    &-img{
+        max-width: 2000px;
+        max-height: 2000px;
+
+    }
+}

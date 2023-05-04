@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Slide from "../../Components/Slider/Slider"
 import CourseFind from '../../Components/Shared/CourseFind'
 import Content from '../../Components/Shared/Content'

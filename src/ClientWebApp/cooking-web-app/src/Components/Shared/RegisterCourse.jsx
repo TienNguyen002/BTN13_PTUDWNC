@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./style/index.scss"
 import { Form } from "react-bootstrap";
 import Button from 'react-bootstrap/Button'
+import { getFilter } from "../../Services/CourseRepository"
 
 const RegisterCourse = () => {
+    const 
+    [filter, setFilter] = useState({
+        demandList: [],
+    })
+
+    useEffect(() => {
+        getFilter().then(data => {
+            if(data){
+                setFilter({
+                    demandList: data.demandList
+                });
+            } else{
+                setFilter({
+                    demandList: []
+                });
+            }
+        })
+    }, [])
+
     return(
         <div className="container register-course mb-4">
             <h2 class="h1-responsive font-weight-bold text-center my-4">Đăng ký khóa học</h2>
@@ -36,7 +56,7 @@ const RegisterCourse = () => {
                             <div className="col-6">
                                 <Form.Group>
                                     <Form.Control
-                                        type="text"
+                                        type="email"
                                         aria-label='Nhập Email của bạn*'
                                         aria-describedby="btnSend"
                                         required
@@ -52,6 +72,9 @@ const RegisterCourse = () => {
                                         name='demandId'
                                         title='Demand Id'>
                                         <option value=''>-- Chọn Nhu cầu --</option>
+                                        {filter.demandList.length > 0 &&
+                                        filter.demandList.map((item, index) => 
+                                        <option key={index} value={item.value}>{item.text}</option>)}
                                     </Form.Select>
                                 </Form.Group>
                             </div>

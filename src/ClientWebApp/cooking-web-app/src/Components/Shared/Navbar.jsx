@@ -46,11 +46,6 @@ const Navbar = () => {
                                 TIN TỨC
                             </Link>
                         </NavItem>
-                        <NavItem>
-                            <Link to='/rss' className="navitem">
-                                RSS
-                            </Link>
-                        </NavItem>
                     </Nav>
                 </Nb.Collapse>
             </div>

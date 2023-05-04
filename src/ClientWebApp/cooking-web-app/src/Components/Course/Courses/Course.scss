@@ -7,3 +7,18 @@
 .title:hover{
     color: red;
 }
+
+.description{
+    color: black;
+}
+
+.course{
+    &-title{
+        text-decoration: none;
+        padding-left: 50px;
+        color: rgb(22, 134, 22);
+    }
+    &-title:hover{
+        color: rgb(22, 134, 22);
+    }
+}
