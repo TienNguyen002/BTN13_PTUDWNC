@@ -1,4 +1,5 @@
 import { get_api, delete_api, post_api, post_image_api ,put_api } from "./Methods"
+import axios from "axios";
 
 export function getCourses(
         pageSize = 6,
@@ -55,14 +56,52 @@ export function getCoursesFilter(
         return get_api(`https://localhost:7029/api/courses/toggle-status/${id}`)
     }
 
-    export function addCourse(course){
-        return post_api(`https://localhost:7029/api/courses`, course)
-    }
+    export async function addCourse(course) {
+        try {
+          const res = await axios.post(`https://localhost:7029/api/courses`, course);
+          const data = res.data;
+          if (data.isSuccess) {
+            return data.result;
+          } else {
+            console.log(data);
+            return null;
+          }
+        } catch (error) {
+          console.log('Error', error);
+          return null;
+        }
+      }
 
-    export function updateCourse(courseId, course){
-        return put_api(`https://localhost:7029/api/courses/${courseId}`, course)
-    }
+      export async function updateCourse(courseId, course) {
+        try {
+          // const res = await axios.put(`${process.env.REACT_APP_API_URL}/api/posts/${postId}`, post);
+          const res = await axios.put(`https://localhost:7029/api/courses/${courseId}`, course);
+          const data = res.data;
+          if (data.isSuccess) {
+            return data.result;
+          } else {
+            return null;
+          }
+        } catch (error) {
+          console.log('Error', error);
+          return null;
+        }
+      }
 
-    export function updateImage(courseId, formData){
-        return post_image_api(`https://localhost:7029/api/courses/${courseId}/picture`, formData)
-    }
+      export async function updateImage(courseId, image) {
+        try {
+          const formData = new FormData();
+          formData.append("file", image);
+          const res = await axios.post(`https://localhost:7029/api/courses/${courseId}`, formData);
+      
+          const data = res.data;
+          if (data.isSuccess) {
+            return data;
+          } else {
+            return null;
+          }
+        } catch (error) {
+          console.log('Error', error);
+          return null;
+        }
+      }
