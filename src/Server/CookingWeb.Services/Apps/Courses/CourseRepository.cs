@@ -1,5 +1,6 @@
 ﻿using CookingWeb.Core.Contracts;
 using CookingWeb.Core.DTO.Course;
+using CookingWeb.Core.DTO.Post;
 using CookingWeb.Core.Entities;
 using CookingWeb.Data.Contexts;
 using CookingWeb.Services.Extensions;
@@ -81,8 +82,7 @@ namespace CookingWeb.Services.Apps.Courses
                 .Include(c => c.Demand)
                 .Include(c => c.Price)
                 .Include(c => c.NumberOfSessions)
-                .Include(c => c.Chef)
-                .Where(c => c.Published);
+                .Include(c => c.Chef);
             if (!string.IsNullOrEmpty(query.Keyword))
             {
                 courseQuery = courseQuery.Where(c => c.Title.Contains(query.Keyword)
@@ -113,6 +113,14 @@ namespace CookingWeb.Services.Apps.Courses
             if(query.CreateYear > 0)
             {
                 courseQuery = courseQuery.Where(c => c.CreateDate.Year == query.CreateYear);
+            }
+            if(query.NotPublished)
+            {
+                courseQuery = courseQuery.Where(c => c.Published == query.NotPublished);
+            }
+            if(query.PublishedOnly)
+            {
+                courseQuery = courseQuery.Where(c => c.Published == query.PublishedOnly);
             }
             return courseQuery;
         }

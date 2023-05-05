@@ -118,8 +118,8 @@ const PostFilterPane = () => {
                 </Form.Select>
             </Form.Group>
             <Form.Group className='col-auto'>
-                <Button variant='primary' type='submit'>
-                    Tìm/Lọc
+                <Button variant='danger' type='reset'>
+                    <Link to={`/`}/>Xoá lọc
                 </Button>
                 <Link to={`/admin/posts/edit`} className='btn btn-success ms-2'>Thêm mới</Link>
             </Form.Group>

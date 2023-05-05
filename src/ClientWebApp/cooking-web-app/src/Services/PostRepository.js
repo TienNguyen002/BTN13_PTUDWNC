@@ -1,9 +1,9 @@
-import { get_api } from "./Methods"
+import { get_api, delete_api } from "./Methods"
 
 export function getPosts(
         pageSize = 4,
         pageNumber = 1,){
-    return get_api(`https://localhost:7029/api/posts?PageSize=${pageSize}&PageNumber=${pageNumber}`);
+    return get_api(`https://localhost:7029/api/posts?PublishedOnly=true&PageSize=${pageSize}&PageNumber=${pageNumber}`);
 }
 
 export function getPostBySlug(slug){
@@ -35,4 +35,12 @@ export function getPostsFilter(
         url.searchParams.append('PageSize', pageSize);
         url.searchParams.append('PageNumber', pageNumber);
         return get_api(url.href);
+    }
+
+    export function deletePost(id = 0){
+        return delete_api(`https://localhost:7029/api/posts/${id}`)
+    }
+    
+    export function toggleStatus(id = 0){
+        return get_api(`https://localhost:7029/api/posts/toggle-status/${id}`)
     }

@@ -1,11 +1,14 @@
 .recipe-content{
+    &-container{
+        display: flex;
+        align-items: center;
+        justify-content: center
+    }
     &-title{
         color: red;
     }
-    &-img{
-        max-width: 2000px;
-        max-height: 2000px;
-        padding-left: 20%;
+    &-description{
+        padding-top: 20px;
     }
     &-ingredient{
         &-title{
@@ -17,4 +20,11 @@
             color:green;
         }
     }
+    &-author{
+        padding-top: 30px;
+    }
+}
+
+.color{
+    color: green;
 }

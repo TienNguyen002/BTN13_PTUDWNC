@@ -14,3 +14,4 @@ export function useQuery(){
 export function isInteger(str){
     return Number.isInteger(Number(str)) && Number(str) >= 0;
 }
+

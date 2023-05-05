@@ -25,5 +25,6 @@ namespace CookingWeb.Core.DTO.Course
         public int? CreateYear { get; set; }
         public bool PublishedOnly { get; set; }
         public bool NotPublished { get; set; }
+        public bool Status { get; set; }
     }
 }

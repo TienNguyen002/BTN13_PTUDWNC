@@ -21,6 +21,10 @@ namespace CookingWeb.WebApi.Models.Post
         [DisplayName("Năm")]
         public int? CreateYear { get; set; }
 
+        [DisplayName("Trạng thái")]
+        public bool? PublishedOnly { get; set; }
+        public bool? NotPublished { get; set; }
+
         public IEnumerable<SelectListItem> AuthorList { get; set; }
         public IEnumerable<SelectListItem> CategoryList { get; set; }
         public IEnumerable<SelectListItem> MonthList { get; set; }

@@ -1,13 +1,17 @@
-import { get_api } from "./Methods"
+import { get_api, delete_api, post_api, post_image_api ,put_api } from "./Methods"
 
 export function getCourses(
         pageSize = 6,
         pageNumber = 1,){
-    return get_api(`https://localhost:7029/api/courses?PageSize=${pageSize}&PageNumber=${pageNumber}`);
+    return get_api(`https://localhost:7029/api/courses?PublishedOnly=true&PageSize=${pageSize}&PageNumber=${pageNumber}`);
 }
 
 export function getCourseBySlug(slug){
     return get_api(`https://localhost:7029/api/courses/${slug}`)
+}
+
+export function getCourseById(id){
+    return get_api(`https://localhost:7029/api/courses/${id}`)
 }
 
 export function getPopularCourse(){
@@ -41,4 +45,24 @@ export function getCoursesFilter(
         url.searchParams.append('PageSize', pageSize);
         url.searchParams.append('PageNumber', pageNumber);
         return get_api(url.href);
+    }
+
+    export function deleteCourse(id = 0){
+        return delete_api(`https://localhost:7029/api/courses/${id}`)
+    }
+    
+    export function toggleStatus(id = 0){
+        return get_api(`https://localhost:7029/api/courses/toggle-status/${id}`)
+    }
+
+    export function addCourse(course){
+        return post_api(`https://localhost:7029/api/courses`, course)
+    }
+
+    export function updateCourse(courseId, course){
+        return put_api(`https://localhost:7029/api/courses/${courseId}`, course)
+    }
+
+    export function updateImage(courseId, formData){
+        return post_image_api(`https://localhost:7029/api/courses/${courseId}/picture`, formData)
     }

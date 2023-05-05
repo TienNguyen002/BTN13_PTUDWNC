@@ -11,10 +11,12 @@ import RecipeDetail from "../Components/Recipe/RecipeDetail/RecipeDetail";
 import PostDetail from "../Components/Post/PostDetail/PostDetail"
 import AdminLayout from "../Pages/Admin/AdminLayout";
 import AdminCourse from "../Pages/Admin/Course/AdminCourses";
+import CourseEdit from "../Pages/Admin/Course/CourseEdit"
 import BadRequest from "../Pages/Shared/BadRequest";
 import NotFound from "../Pages/Shared/NotFound"
 import AdminRecipe from "../Pages/Admin/Recipe/AdminRecipes";
 import AdminPost from "../Pages/Admin/Post/AdminPosts";
+import About from "../Pages/User/About";
 
 const Router = () => {
     return(
@@ -32,9 +34,12 @@ const Router = () => {
                     <Route path="/thuc-don/:slug" element={<PostDetail/>}/>
                     <Route path="/meo-nha-bep" element={<KitchenTips/>}/>
                     <Route path="/tin-tuc" element={<News/>}/>
+                    <Route path="/gioi-thieu" element={<About/>}/>
                 </Route>
                 <Route path="/admin" element={<AdminLayout/>}>
-                    <Route path="/admin/courses" element={<AdminCourse/>}/>   
+                    <Route path="/admin/courses" element={<AdminCourse/>}/> 
+                    <Route path="/admin/courses/edit" element={<CourseEdit/>}/>  
+                    <Route path="/admin/courses/edit/:id" element={<CourseEdit/>}/>  
                     <Route path="/admin/recipes" element={<AdminRecipe/>}/>   
                     <Route path="/admin/posts" element={<AdminPost/>}/>   
                 </Route>          

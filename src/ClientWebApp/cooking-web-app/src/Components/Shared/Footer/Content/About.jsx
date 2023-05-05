@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 const About = () => {
     return(
-        <div className="about">
+        <div className="about-footer">
             <h4>LIÊN HỆ</h4>
             <div>
                 <p>Nghề Bếp Á Âu đơn vị đào tạo nghề bếp dẫn đầu tại Việt Nam. Tham gia các khóa học tại đây bạn sẽ nắm được các công thức nấu ăn, những mẹo vặt làm cho món ăn ngon hơn. Từ cách chọn, chế biến nguyên liệu, cho đến lúc trang trí để tạo ra một món ăn ngon.</p>
@@ -28,7 +28,7 @@ const About = () => {
                 <div>
                     <FontAwesomeIcon icon={faEnvelope} className="footer-fa-icon fa-envelope" />
                     Email:
-                    <Link to={"mailto:2012254@dlu.edu.vn"} className="footer-email-send">
+                    <Link to={"mailto:2015749@dlu.edu.vn"} className="footer-email-send">
                         2015749@dlu.edu.vn
                     </Link>
                 </div>

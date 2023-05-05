@@ -1,4 +1,5 @@
 ﻿using CookingWeb.Core.Contracts;
+using CookingWeb.Core.DTO.Course;
 using CookingWeb.Core.DTO.Post;
 using CookingWeb.Core.DTO.Recipe;
 using CookingWeb.Core.Entities;
@@ -62,8 +63,7 @@ namespace CookingWeb.Services.Apps.Posts
         {
             IQueryable<Post> postQuery = _context.Set<Post>()
                 .Include(p => p.Author)
-                .Include(p => p.Category)
-                .Where(p => p.Published);
+                .Include(p => p.Category);
             if (!string.IsNullOrEmpty(query.Keyword))
             {
                 postQuery = postQuery.Where(p => p.Title.Contains(query.Keyword)
@@ -73,19 +73,27 @@ namespace CookingWeb.Services.Apps.Posts
             }
             if (query.AuthorId > 0)
             {
-                postQuery = postQuery.Where(r => r.AuthorId == query.AuthorId);
+                postQuery = postQuery.Where(p => p.AuthorId == query.AuthorId);
             }
             if (query.CategoryId > 0)
             {
-                postQuery = postQuery.Where(r => r.CategoryId == query.CategoryId);
+                postQuery = postQuery.Where(p => p.CategoryId == query.CategoryId);
             }
             if (query.CreateMonth > 0)
             {
-                postQuery = postQuery.Where(c => c.CreateDate.Month == query.CreateMonth);
+                postQuery = postQuery.Where(p => p.CreateDate.Month == query.CreateMonth);
             }
             if (query.CreateYear > 0)
             {
-                postQuery = postQuery.Where(c => c.CreateDate.Year == query.CreateYear);
+                postQuery = postQuery.Where(p => p.CreateDate.Year == query.CreateYear);
+            }
+            if (query.NotPublished)
+            {
+                postQuery = postQuery.Where(p => p.Published == query.NotPublished);
+            }
+            if (query.PublishedOnly)
+            {
+                postQuery = postQuery.Where(p => p.Published == query.PublishedOnly);
             }
             return postQuery;
         }

@@ -27,6 +27,10 @@ namespace CookingWeb.WebApi.Models.Course
         [DisplayName("Năm")]
         public int? CreateYear { get; set; }
 
+        [DisplayName("Trạng thái")]
+        public bool? PublishedOnly { get; set; }
+        public bool? NotPublished { get; set; }
+
         public IEnumerable<SelectListItem> DemandList { get; set; }
         public IEnumerable<SelectListItem> PriceList { get; set; }
         public IEnumerable<SelectListItem> NumberOfSessionsList { get; set; }

@@ -1,4 +1,5 @@
 ﻿using CookingWeb.Core.Contracts;
+using CookingWeb.Core.DTO.Post;
 using CookingWeb.Core.DTO.Recipe;
 using CookingWeb.Core.Entities;
 using CookingWeb.Data.Contexts;
@@ -60,8 +61,7 @@ namespace CookingWeb.Services.Apps.Recipes
         {
             IQueryable<Recipe> recipeQuery = _context.Set<Recipe>()
                 .Include(r => r.Author)
-                .Include(r => r.Course)
-                .Where(r => r.Published);
+                .Include(r => r.Course);
             if(!string.IsNullOrEmpty(query.Keyword))
             {
                 recipeQuery = recipeQuery.Where(r => r.Title.Contains(query.Keyword)
@@ -79,11 +79,19 @@ namespace CookingWeb.Services.Apps.Recipes
             }
             if (query.CreateMonth > 0)
             {
-                recipeQuery = recipeQuery.Where(c => c.CreateDate.Month == query.CreateMonth);
+                recipeQuery = recipeQuery.Where(r => r.CreateDate.Month == query.CreateMonth);
             }
             if (query.CreateYear > 0)
             {
-                recipeQuery = recipeQuery.Where(c => c.CreateDate.Year == query.CreateYear);
+                recipeQuery = recipeQuery.Where(r => r.CreateDate.Year == query.CreateYear);
+            }
+            if (query.NotPublished)
+            {
+                recipeQuery = recipeQuery.Where(r => r.Published == query.NotPublished);
+            }
+            if (query.PublishedOnly)
+            {
+                recipeQuery = recipeQuery.Where(r => r.Published == query.PublishedOnly);
             }
             return recipeQuery;
         }

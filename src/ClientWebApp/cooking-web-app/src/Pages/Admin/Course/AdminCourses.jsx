@@ -1,12 +1,14 @@
 import React, { useState, useEffect} from "react";
 import Table from "react-bootstrap/Table";
 import { Link, useParams } from "react-router-dom";
-import { getCoursesFilter } from "../../../Services/CourseRepository";
+import { getCoursesFilter, toggleStatus, deleteCourse } from "../../../Services/CourseRepository";
 import Loading from "../../../Components/Shared/Loading"
 import "../Admin.scss"
 import CourseFilterPane from "../../../Components/Admin/Course/CourseFilterPane";
 import { isInteger } from "../../../Utils/Utils"
 import { useSelector } from "react-redux";
+import { faTrash, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const AdminCourse = () => {
     const [coursesList, setCoursesList] = useState([]),
@@ -34,6 +36,36 @@ const AdminCourse = () => {
         })
     }, [courseFilter, p, ps]);
 
+    const handleDelete = (e, id) => {
+        e.preventDefault();
+        window.location.reload(false);
+        DeleteCourse(id);
+
+        async function DeleteCourse(id){
+            if(window.confirm("Xóa khóa học này?")){
+                const response = await deleteCourse(id);
+                if(response)
+                    alert("Xóa thành công!");
+                else
+                    alert("Lỗi!!");
+            }
+        }
+    };
+
+    const handleToggleStatus = (e, id) => {
+        e.preventDefault();
+        window.location.reload(false);
+        ChangePublished(id);
+
+        async function ChangePublished(id){
+            const response = await toggleStatus(id);
+            if(response)
+                console.log(response);
+            else
+                console.log("Thay đổi không thành công");
+        }
+    }
+
     return(
         <>
             <h1>Danh sách khóa học</h1>
@@ -48,6 +80,7 @@ const AdminCourse = () => {
                             <th>Giá</th>
                             <th>Số buổi</th>
                             <th>Trạng thái</th>
+                            <th>Xóa</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,7 +96,24 @@ const AdminCourse = () => {
                                 <td className="text-center">{item.demand.name}</td>
                                 <td className="text-center">{item.price.name}</td>
                                 <td className="text-center">{item.numberOfSessions.name}</td>
-                                <td className="text-center">{item.published ? "Có" : "Không"}</td>
+                                <td>
+                                    <div className="text-center"
+                                        onClick={(e) => handleToggleStatus(e, item.id)}>
+                                            {item.published 
+                                            ? <div className="published">
+                                                <FontAwesomeIcon icon={faEye}/> Có
+                                            </div>
+                                            : <div className="not-published">
+                                                <FontAwesomeIcon icon={faEyeSlash}/> Không
+                                            </div>}
+                                    </div> 
+                                </td>
+                                <td>
+                                    <div className="text-center delete"
+                                        onClick={(e) => handleDelete(e, item.id)}>
+                                        <FontAwesomeIcon icon={faTrash}/>
+                                    </div>
+                                </td>
                             </tr>
                         ) : 
                         <tr>

@@ -144,9 +144,9 @@ const CourseFilterPane = () => {
             </Form.Group>
             <Form.Group className='col-auto'>
                 <Button variant='danger' type='reset'>
-                    Xoá lọc
+                    <Link to={`/`}/>Xoá lọc
                 </Button>
-                <Link to={`/admin/posts/edit`} className='btn btn-success ms-2'>Thêm mới</Link>
+                <Link to={`/admin/courses/edit`} className='btn btn-success ms-2'>Thêm mới</Link>
             </Form.Group>
         </Form>
     )
