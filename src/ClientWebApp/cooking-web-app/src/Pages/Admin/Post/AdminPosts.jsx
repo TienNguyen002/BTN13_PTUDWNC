@@ -83,7 +83,7 @@ const AdminPost = () => {
                         {postsList.length > 0 ? postsList.map((item, index) =>
                             <tr key={index}>
                                 <td>
-                                    <Link to={`/admin/post/edit/${item.id}`}>
+                                    <Link to={`/admin/posts/edit/${item.id}`}>
                                         {item.title}
                                     </Link>
                                     <p className="shortDescription">{item.shortDescription}</p>

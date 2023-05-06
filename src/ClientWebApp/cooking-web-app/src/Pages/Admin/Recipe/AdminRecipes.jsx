@@ -82,7 +82,7 @@ const AdminRecipe = () => {
                         {recipesList.length > 0 ? recipesList.map((item, index) =>
                             <tr key={index}>
                                 <td>
-                                    <Link to={`/admin/recipe/edit/${item.id}`}>
+                                    <Link to={`/admin/recipes/edit/${item.id}`}>
                                         {item.title}
                                     </Link>
                                     <p className="shortDescription">{item.shortDescription}</p>

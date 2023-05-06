@@ -15,7 +15,9 @@ import CourseEdit from "../Pages/Admin/Course/CourseEdit"
 import BadRequest from "../Pages/Shared/BadRequest";
 import NotFound from "../Pages/Shared/NotFound"
 import AdminRecipe from "../Pages/Admin/Recipe/AdminRecipes";
+import RecipeEdit from "../Pages/Admin/Recipe/RecipeEdit";
 import AdminPost from "../Pages/Admin/Post/AdminPosts";
+import PostEdit from "../Pages/Admin/Post/PostEdit"
 import About from "../Pages/User/About";
 
 const Router = () => {
@@ -40,8 +42,12 @@ const Router = () => {
                     <Route path="/admin/courses" element={<AdminCourse/>}/> 
                     <Route path="/admin/courses/edit" element={<CourseEdit/>}/>  
                     <Route path="/admin/courses/edit/:id" element={<CourseEdit/>}/>  
-                    <Route path="/admin/recipes" element={<AdminRecipe/>}/>   
-                    <Route path="/admin/posts" element={<AdminPost/>}/>   
+                    <Route path="/admin/recipes" element={<AdminRecipe/>}/>  
+                    <Route path="/admin/recipes/edit" element={<RecipeEdit/>}/>  
+                    <Route path="/admin/recipes/edit/:id" element={<RecipeEdit/>}/>  
+                    <Route path="/admin/posts" element={<AdminPost/>}/> 
+                    <Route path="/admin/posts/edit" element={<PostEdit/>}/>  
+                    <Route path="/admin/posts/edit/:id" element={<PostEdit/>}/>   
                 </Route>          
             </Routes>
         </BrowserRouter>

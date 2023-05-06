@@ -121,7 +121,7 @@ const RecipeFilterPane = () => {
                 <Button variant='danger' type='reset'>
                     <Link to={`/`}/>Xoá lọc
                 </Button>
-                <Link to={`/admin/posts/edit`} className='btn btn-success ms-2'>Thêm mới</Link>
+                <Link to={`/admin/recipes/edit`} className='btn btn-success ms-2'>Thêm mới</Link>
             </Form.Group>
         </Form>
     )

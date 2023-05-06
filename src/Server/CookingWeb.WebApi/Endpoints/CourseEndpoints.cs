@@ -26,11 +26,15 @@ namespace CookingWeb.WebApi.Endpoints
                 .WithName("GetCourses")
                 .Produces<ApiResponse<PaginationResult<CourseDto>>>();
 
+            routeGroupBuilder.MapGet("/allcourses", GetAllCourses)
+               .WithName("GetAllCourses")
+               .Produces<ApiResponse<PaginationResult<CourseItem>>>();
+
             routeGroupBuilder.MapGet("/{id:int}", GetCourseById)
                 .WithName("GetCourseById")
                 .Produces<ApiResponse<CourseDetail>>();
 
-            routeGroupBuilder.MapGet("/{slug:regex(^[a-z0-9_-]+$)}", GetCourseBySlug)
+            routeGroupBuilder.MapGet("/byslug/{slug:regex(^[a-z0-9_-]+$)}", GetCourseBySlug)
               .WithName("GetCourseBySlug")
               .Produces<ApiResponse<CourseDetail>>();
 
@@ -68,6 +72,13 @@ namespace CookingWeb.WebApi.Endpoints
               .WithName("SetCoursePicture")
               .Accepts<IFormFile>("multipart/form-data")
               .Produces<ApiResponse<string>>();
+        }
+
+        private static async Task<IResult> GetAllCourses(
+            [FromServices] ICourseRepository courseRepository)
+        {
+            var courses = await courseRepository.GetCoursesAsync();
+            return Results.Ok(ApiResponse.Success(courses));
         }
 
         private static async Task<IResult> GetCourses(

@@ -1,4 +1,5 @@
 import { get_api, delete_api } from "./Methods"
+import axios from "axios";
 
 export function getRecipes(
         pageSize = 4,
@@ -6,8 +7,12 @@ export function getRecipes(
     return get_api(`https://localhost:7029/api/recipes?PublishedOnly=true&PageSize=${pageSize}&PageNumber=${pageNumber}`);
 }
 
+export function getRecipeById(id){
+    return get_api(`https://localhost:7029/api/recipes/${id}`)
+}
+
 export function getRecipeBySlug(slug){
-    return get_api(`https://localhost:7029/api/recipes/${slug}`)
+    return get_api(`https://localhost:7029/api/recipes/byslug/${slug}`)
 }
 
 export function getFilter(){
@@ -44,3 +49,52 @@ export function getRecipesFilter(
     export function toggleStatus(id = 0){
         return get_api(`https://localhost:7029/api/recipes/toggle-status/${id}`)
     }
+
+    export async function addRecipe(recipe) {
+        try {
+          const res = await axios.post(`https://localhost:7029/api/recipes`, recipe);
+          const data = res.data;
+          if (data.isSuccess) {
+            return data.result;
+          } else {
+            console.log(data);
+            return null;
+          }
+        } catch (error) {
+          console.log('Error', error);
+          return null;
+        }
+      }
+
+      export async function updateRecipe(recipeId, recipe) {
+        try {
+          const res = await axios.put(`https://localhost:7029/api/recipes/${recipeId}`, recipe);
+          const data = res.data;
+          if (data.isSuccess) {
+            return data.result;
+          } else {
+            return null;
+          }
+        } catch (error) {
+          console.log('Error', error);
+          return null;
+        }
+      }
+
+      export async function updateImage(recipeId, image) {
+        try {
+          const formData = new FormData();
+          formData.append("file", image);
+          const res = await axios.post(`https://localhost:7029/api/recipes/${recipeId}`, formData);
+      
+          const data = res.data;
+          if (data.isSuccess) {
+            return data;
+          } else {
+            return null;
+          }
+        } catch (error) {
+          console.log('Error', error);
+          return null;
+        }
+      }

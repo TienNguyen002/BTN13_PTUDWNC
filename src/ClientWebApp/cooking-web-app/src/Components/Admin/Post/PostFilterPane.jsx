@@ -86,7 +86,7 @@ const PostFilterPane = () => {
                     value={postFilter.categoryId}
                     onChange={e => dispatch(updateCategoryId(e.target.value))}
                     title='Course Id'>
-                    <option value=''>-- Chọn khóa học --</option>
+                    <option value=''>-- Chọn chủ đề --</option>
                     {filter.categoryList && filter.categoryList.map((item, index) =>
                         <option key={index} value={item.value}>{item.text}</option>)}
                 </Form.Select>

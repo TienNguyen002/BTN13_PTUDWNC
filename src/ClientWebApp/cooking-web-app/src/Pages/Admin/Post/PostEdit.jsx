@@ -1,97 +1,83 @@
 import React, {useRef, useState, useEffect} from "react";
 import {Link, Navigate, useParams} from "react-router-dom"
 import {
-    addCourse,
-    getCourseById,
-    updateCourse,
+    addPost,
+    getPostById,
+    updatePost,
     updateImage
-} from "../../../Services/CourseRepository"
+} from "../../../Services/PostRepository"
 import { isEmptyOrSpaces, isInteger } from "../../../Utils/Utils"
 import { Button, Form } from "react-bootstrap";
-import { getDemands, getPrices, getSessions} from "../../../Services/Other"
+import { getPrices } from "../../../Services/Other"
 
 const initialState = {
     title: "",
     shortDescription: "",
     description: "",
+    metadata: "",
     urlSlug: "",
-    demand: {
+    author: {
       id: ""
     },
-    price: {
+    category: {
       id: ""
     },
-    numberOfSessions: {
-        id:""
-    },
-    chef: {
-        id:""
-    },
-    demandId: "",
-    priceId: "",
-    numberOfSessionsId: "",
-    chefId: "",
+    authorId: "",
+    categoryId: "",
     published: false
   };
   
-  export default function CourseEdit() {
+  export default function PostEdit() {
     const params = useParams();
   
-    const [course, setCourse] = useState(initialState);
-    const [demands, setDemands] = useState([]);
-    const [prices, setPrices] = useState([]);
-    const [numberOfSessions, setNumberOfSessions] = useState([]);
-    const [chefs, setChefs] = useState([]);
+    const [post, setPosts] = useState(initialState);
+    const [authors, setAuthors] = useState([]);
+    const [categories, setCategories] = useState([]);
     const imageFile = useRef();
   
     useEffect(() => {
-      fetchCourses();
-      async function fetchCourses() {
-        const data = await getCourseById(params.id);
+      fetchPosts();
+      async function fetchPosts() {
+        const data = await getPostById(params.id);
         if (data) {
-          setCourse(data);
-        } else setCourse([]);
-        const demands = await getDemands();
-        if (demands) setDemands(demands);
-        const prices = await getPrices();
-        if (prices) setPrices(prices);
-        const numberOfSessions = await getSessions();
-        if (numberOfSessions) setNumberOfSessions(numberOfSessions);
-        const chefs = await getSessions();
-        if (chefs) setChefs(chefs);
+          setPosts(data);
+        } else setPosts([]);
+        const authors = await getPrices();
+        if (authors) setAuthors(authors);
+        const categories = await getPrices();
+        if (categories) setCategories(categories);
       }
     }, []);
   
     if (params.id && !isInteger(params.id)) {
-      return <Navigate to={`/400?redirectTo=/admin/courses`} />;
+      return <Navigate to={`/400?redirectTo=/admin/posts`} />;
     }
-
+  
     const handleSubmit = (e) => {
       e.preventDefault();
-      console.log(course);
+      console.log(post);
       const data = {
-        title: course.title,
-        shortDescription: course.shortDescription,
-        description: course.description,
-        urlSlug: course.urlSlug,
-        demandId: course.demandId ? course.demandId : course.demand.id,
-        priceId: course.priceId ? course.priceId : course.price.id,
-        numberOfSessionsId: course.numberOfSessionsId ? course.numberOfSessionsId : course.numberOfSessions.id,
-        chefId: course.chefId ? course.chefId : course.chef.id,
-        published: course.published
+        title: post.title,
+        shortDescription: post.shortDescription,
+        description: post.description,
+        metadata: post.metadata,
+        urlSlug: post.urlSlug,
+        authorId: post.authorId ? post.authorId : post.author.id,
+        categoryId: post.categoryId ? post.categoryId : post.category.id,
+        published: post.published
       };
   
       console.log(data);
       const fileImage = imageFile.current.files[0];
       console.log(fileImage);
       if (params.id) {
-        UpdateCourse(data);
+        UpdatePost(data);
       } else {
-        AddCourse(data);
+        AddPost(data);
       }
   
-      async function UpdateCourse(data) {
-        const res = await updateCourse(params.id, data);
+      async function UpdatePost(data) {
+        const res = await updatePost(params.id, data);
         console.log(res);
         if (res) {
           alert("Cập nhập thành công");
@@ -108,8 +94,8 @@ const initialState = {
         }
       }
   
-      async function AddCourse(data) {
-        const res = await addCourse(data);
+      async function AddPost(data) {
+        const res = await addPost(data);
         if (res) {
           alert("Thêm thành công");
         } else {
@@ -132,10 +118,10 @@ const initialState = {
                 name="title"
                 title="Title"
                 required
-                value={course.title || ""}
+                value={post.title || ""}
                 onChange={(e) =>
-                  setCourse({
-                    ...course,
+                  setPosts({
+                    ...post,
                     title: e.target.value
                   })
                 }
@@ -150,10 +136,10 @@ const initialState = {
                 name="slug"
                 title="Slug"
                 required
-                value={course.urlSlug || ""}
+                value={post.urlSlug || ""}
                 onChange={(e) =>
-                  setCourse({
-                    ...course,
+                  setPosts({
+                    ...post,
                     urlSlug: e.target.value
                   })
                 }
@@ -170,10 +156,10 @@ const initialState = {
                 name="shortDescription"
                 title="Short Description"
                 required
-                value={course.shortDescription || ""}
+                value={post.shortDescription || ""}
                 onChange={(e) =>
-                  setCourse({
-                    ...course,
+                  setPosts({
+                    ...post,
                     shortDescription: e.target.value
                   })
                 }
@@ -188,10 +174,10 @@ const initialState = {
                 name="description"
                 title="Description"
                 required
-                value={course.description || ""}
+                value={post.description || ""}
                 onChange={(e) =>
-                  setCourse({
-                    ...course,
+                  setPosts({
+                    ...post,
                     description: e.target.value
                   })
                 }
@@ -199,104 +185,76 @@ const initialState = {
             </div>
           </div>
           <div className="row mb-3">
-            <Form.Label className="col-sm-2 col-form-label">Nhu cầu</Form.Label>
+            <Form.Label className="col-sm-2 col-form-label">Metadata</Form.Label>
+            <div className="col-sm-10">
+              <Form.Control
+                type="text"
+                name="metadata"
+                title="Metadata"
+                required
+                value={post.metadata || ""}
+                onChange={(e) =>
+                  setPosts({
+                    ...post,
+                    metadata: e.target.value
+                  })
+                }
+              />
+            </div>
+          </div>
+          <div className="row mb-3">
+            <Form.Label className="col-sm-2 col-form-label">Tác giả</Form.Label>
             <div className="col-sm-10">
               <Form.Select
-                name="demandId"
-                title="DemandId"
-                value={course.demandId ? course.demandId : course.demand?.id}
+                name="authorId"
+                title="AuthorId"
+                value={post.authorId ? post.authorId : post.author?.id}
                 required
                 onChange={(e) =>
-                  setCourse({
-                    ...course,
-                    demandId: e.target.value
+                  setPosts({
+                    ...post,
+                    authorId: e.target.value
                   })
                 }>
-                <option value="">-- Chọn loại nhu cầu --</option>
-                {demands.map((demand) => (
-                  <option key={demand.id} value={demand.id}>
-                    {demand.name}
+                <option value="">-- Chọn tác giả --</option>
+                {authors.map((author) => (
+                  <option key={author.id} value={author.id}>
+                    {author.fullName}
                   </option>
                 ))}
               </Form.Select>
             </div>
           </div>
           <div className="row mb-3">
-            <Form.Label className="col-sm-2 col-form-label">Giá</Form.Label>
+            <Form.Label className="col-sm-2 col-form-label">Chủ đề</Form.Label>
             <div className="col-sm-10">
               <Form.Select
-                name="priceId"
-                title="PriceId"
-                value={course.priceId ? course.priceId : course.price?.id}
+                name="categoryId"
+                title="CategoryId"
+                value={post.categoryId ? post.categoryId : post.category?.id}
                 required
                 onChange={(e) =>
-                  setCourse({
-                    ...course,
-                    priceId: e.target.value
+                  setPosts({
+                    ...post,
+                    categoryId: e.target.value
                   })
                 }>
-                <option value="">-- Chọn giá --</option>
-                {prices.map((price) => (
-                  <option key={price.id} value={price.id}>
-                    {price.name}
+                <option value="">-- Chọn chủ đề --</option>
+                {categories.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
                   </option>
                 ))}
               </Form.Select>
             </div>
           </div>
-          <div className="row mb-3">
-            <Form.Label className="col-sm-2 col-form-label">Số buổi</Form.Label>
-            <div className="col-sm-10">
-              <Form.Select
-                name="numberOfSessionsId"
-                title="NumberOfSessionsId"
-                value={course.numberOfSessionsId ? course.numberOfSessionsId : course.numberOfSessions?.id}
-                required
-                onChange={(e) =>
-                  setCourse({
-                    ...course,
-                    numberOfSessionsId: e.target.value
-                  })
-                }>
-                <option value="">-- Chọn số buổi --</option>
-                {numberOfSessions.map((numberOfSession) => (
-                  <option key={numberOfSession.id} value={numberOfSession.id}>
-                    {numberOfSession.name}
-                  </option>
-                ))}
-              </Form.Select>
-            </div>
-          </div>
-          <div className="row mb-3">
-            <Form.Label className="col-sm-2 col-form-label">Đầu bếp</Form.Label>
-            <div className="col-sm-10">
-              <Form.Select
-                name="chefId"
-                title="ChefId"
-                value={course.chefId ? course.chefId : course.chef?.id}
-                required
-                onChange={(e) =>
-                  setCourse({
-                    ...course,
-                    chefId: e.target.value
-                  })
-                }>
-                <option value="">-- Chọn đầu bếp --</option>
-                {chefs.map((chef) => (
-                  <option key={chef.id} value={chef.id}>
-                    {chef.name}
-                  </option>
-                ))}
-              </Form.Select>
-            </div>
-          </div>
-          {!isEmptyOrSpaces(course.imageUrl) && (
+          {!isEmptyOrSpaces(post.imageUrl) && (
             <div className="row mb-3">
               <Form.Label className="col.sm-2 col-form-label">
                 Hình hiện tại
               </Form.Label>
               <div className="col-sm-10">
-                <img src={`https://localhost:7029/${course.imageUrl}`} alt="" />
+                <img src={`https://localhost:7029/${post.imageUrl}`} alt="" />
               </div>
             </div>
           )}
@@ -312,7 +270,7 @@ const initialState = {
                 title="Image File"
                 ref={imageFile}
                 onChange={(e) =>
-                  setCourse({ ...course, imageFile: e.target.files[0] })
+                  setPosts({ ...post, imageFile: e.target.files[0] })
                 }
               />
             </div>
@@ -324,9 +282,9 @@ const initialState = {
                   className="form-check-input"
                   type="checkbox"
                   name="published"
-                  checked={course.published}
+                  checked={post.published}
                   onChange={(e) =>
-                    setCourse({ ...course, published: e.target.checked })
+                    setPosts({ ...post, published: e.target.checked })
                   }
                 />
                 <Form.Label className="form-check-label">Đã xuất bản</Form.Label>
@@ -337,7 +295,7 @@ const initialState = {
             <Button variant="primary" type="submit">
               Lưu các thay đổi
             </Button>
-            <Link to="/admin/courses" className="btn btn-danger ms-2">
+            <Link to="/admin/posts" className="btn btn-danger ms-2">
               Hủy và quay lại
             </Link>
           </div>

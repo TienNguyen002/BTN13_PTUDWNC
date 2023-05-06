@@ -1,4 +1,5 @@
 import { get_api, delete_api } from "./Methods"
+import axios from "axios";
 
 export function getPosts(
         pageSize = 4,
@@ -7,7 +8,11 @@ export function getPosts(
 }
 
 export function getPostBySlug(slug){
-    return get_api(`https://localhost:7029/api/posts/${slug}`)
+    return get_api(`https://localhost:7029/api/posts/byslug/${slug}`)
+}
+
+export function getPostById(id){
+  return get_api(`https://localhost:7029/api/posts/${id}`)
 }
 
 export function getFilter(){
@@ -44,3 +49,52 @@ export function getPostsFilter(
     export function toggleStatus(id = 0){
         return get_api(`https://localhost:7029/api/posts/toggle-status/${id}`)
     }
+
+    export async function addPost(post) {
+        try {
+          const res = await axios.post(`https://localhost:7029/api/posts`, post);
+          const data = res.data;
+          if (data.isSuccess) {
+            return data.result;
+          } else {
+            console.log(data);
+            return null;
+          }
+        } catch (error) {
+          console.log('Error', error);
+          return null;
+        }
+      }
+
+      export async function updatePost(postId, post) {
+        try {
+          const res = await axios.put(`https://localhost:7029/api/posts/${postId}`, post);
+          const data = res.data;
+          if (data.isSuccess) {
+            return data.result;
+          } else {
+            return null;
+          }
+        } catch (error) {
+          console.log('Error', error);
+          return null;
+        }
+      }
+
+      export async function updateImage(postId, image) {
+        try {
+          const formData = new FormData();
+          formData.append("file", image);
+          const res = await axios.post(`https://localhost:7029/api/posts/${postId}`, formData);
+      
+          const data = res.data;
+          if (data.isSuccess) {
+            return data;
+          } else {
+            return null;
+          }
+        } catch (error) {
+          console.log('Error', error);
+          return null;
+        }
+      }

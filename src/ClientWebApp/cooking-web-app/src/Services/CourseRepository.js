@@ -7,8 +7,12 @@ export function getCourses(
     return get_api(`https://localhost:7029/api/courses?PublishedOnly=true&PageSize=${pageSize}&PageNumber=${pageNumber}`);
 }
 
+export function getAllCourses(){
+  return get_api(`https://localhost:7029/api/courses/allcourses`);
+}
+
 export function getCourseBySlug(slug){
-    return get_api(`https://localhost:7029/api/courses/${slug}`)
+    return get_api(`https://localhost:7029/api/courses/byslug/${slug}`)
 }
 
 export function getCourseById(id){
@@ -74,7 +78,6 @@ export function getCoursesFilter(
 
       export async function updateCourse(courseId, course) {
         try {
-          // const res = await axios.put(`${process.env.REACT_APP_API_URL}/api/posts/${postId}`, post);
           const res = await axios.put(`https://localhost:7029/api/courses/${courseId}`, course);
           const data = res.data;
           if (data.isSuccess) {

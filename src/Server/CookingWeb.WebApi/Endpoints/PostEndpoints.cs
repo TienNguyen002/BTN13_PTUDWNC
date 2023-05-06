@@ -29,7 +29,7 @@ namespace CookingWeb.WebApi.Endpoints
                 .WithName("GetPostById")
                 .Produces<ApiResponse<PostDetail>>();
 
-            routeGroupBuilder.MapGet("/{slug:regex(^[a-z0-9_-]+$)}", GetPostBySlug)
+            routeGroupBuilder.MapGet("/byslug/{slug:regex(^[a-z0-9_-]+$)}", GetPostBySlug)
               .WithName("GetPostBySlug")
               .Produces<ApiResponse<PostDetail>>();
 
