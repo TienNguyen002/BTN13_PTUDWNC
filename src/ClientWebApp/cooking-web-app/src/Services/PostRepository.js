@@ -85,7 +85,7 @@ export function getPostsFilter(
         try {
           const formData = new FormData();
           formData.append("file", image);
-          const res = await axios.post(`https://localhost:7029/api/posts/${postId}`, formData);
+          const res = await axios.post(`https://localhost:7029/api/posts/${postId}/picture`, formData);
       
           const data = res.data;
           if (data.isSuccess) {

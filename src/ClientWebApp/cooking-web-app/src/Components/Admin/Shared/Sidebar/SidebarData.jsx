@@ -1,6 +1,6 @@
 import { icon } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBook, faBowlFood, faPaste, faUser, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { faBook, faBowlFood, faPaste, faUser, faPaperPlane, faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 import React from 'react'
 
 export const SidebarData = [
@@ -44,6 +44,12 @@ export const SidebarData = [
         title: "Học viên",
         path: '/admin/students',
         icon: <FontAwesomeIcon icon={faUser}/>,
+        cName: "nav-text"
+    },
+    {
+        title: "Đăng xuất",
+        path: '/',
+        icon: <FontAwesomeIcon icon={faRightFromBracket}/>,
         cName: "nav-text"
     }
 ]

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import logo from "./images/cooking-logo.png"
 import "./style/index.scss"
 import SearchBar from "./SearchBar";
+import Login from "./Login";
 
 const Navbar = () => {
     return(
@@ -49,8 +50,16 @@ const Navbar = () => {
                     </Nav>
                 </Nb.Collapse>
             </div>
-            <div className="search-bar">
+            <div className="search-bar row">
+                <div className="col">
                 <SearchBar/>
+                </div>
+                <div className="col">
+                 <Login/>
+                </div>
+            </div>
+            <div>
+               
             </div>
         </Nb>
     )

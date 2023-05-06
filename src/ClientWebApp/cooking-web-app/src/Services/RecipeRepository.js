@@ -85,7 +85,7 @@ export function getRecipesFilter(
         try {
           const formData = new FormData();
           formData.append("file", image);
-          const res = await axios.post(`https://localhost:7029/api/recipes/${recipeId}`, formData);
+          const res = await axios.post(`https://localhost:7029/api/recipes/${recipeId}/picture`, formData);
       
           const data = res.data;
           if (data.isSuccess) {

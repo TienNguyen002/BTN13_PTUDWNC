@@ -95,7 +95,7 @@ export function getCoursesFilter(
         try {
           const formData = new FormData();
           formData.append("file", image);
-          const res = await axios.post(`https://localhost:7029/api/courses/${courseId}`, formData);
+          const res = await axios.post(`https://localhost:7029/api/courses/${courseId}/picture`, formData);
       
           const data = res.data;
           if (data.isSuccess) {

@@ -15,7 +15,7 @@ const AdminNavbar = () => {
             <Link to="#" className='menu-bars'>
                 <FontAwesomeIcon icon={faBars} onClick={showSidebar}/> 
             </Link>
-            <h1 className='admin-hello'>ADMIN</h1>
+            <h1 className='admin-hello'>Admin Page</h1>
         </div>
         <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
             <ul className='nav-menu-items' onClick={showSidebar}>

@@ -230,8 +230,8 @@ const initialState = {
             <Form.Label className="col-sm-2 col-form-label">Các bước thực hiện</Form.Label>
             <div className="col-sm-10">
               <Form.Control
-                type="textarea"
-                row={6}
+                as={'textarea'}
+                type="text"
                 name="step"
                 title="Step"
                 required
@@ -285,7 +285,7 @@ const initialState = {
                 <option value="">-- Chọn khóa học --</option>
                 {courses.map((course) => (
                   <option key={course.id} value={course.id}>
-                    {course.name}
+                    {course.title}
                   </option>
                 ))}
               </Form.Select>
