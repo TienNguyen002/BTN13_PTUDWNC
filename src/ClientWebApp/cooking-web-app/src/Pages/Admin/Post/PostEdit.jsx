@@ -8,7 +8,7 @@ import {
 } from "../../../Services/PostRepository"
 import { isEmptyOrSpaces, isInteger } from "../../../Utils/Utils"
 import { Button, Form } from "react-bootstrap";
-import { getPrices } from "../../../Services/Other"
+import { getChefs } from "../../../Services/ChefRepository"
 
 const initialState = {
     title: "",
@@ -42,7 +42,7 @@ const initialState = {
         if (data) {
           setPosts(data);
         } else setPosts([]);
-        const authors = await getPrices();
+        const authors = await getChefs();
         if (authors) setAuthors(authors);
         const categories = await getPrices();
         if (categories) setCategories(categories);

@@ -12,6 +12,7 @@ using CookingWeb.Services.Apps.Other;
 using CookingWeb.Services.Apps.Recipes;
 using Carter;
 using CookingWeb.Services.Apps.Posts;
+using MapsterMapper;
 
 namespace TatBlog.WebApi.Extensions
 {

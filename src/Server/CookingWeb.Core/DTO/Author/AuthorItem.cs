@@ -15,6 +15,4 @@ public class AuthorItem
     public string ImageUrl { get; set; }
     public string UrlSlug { get; set; }
     public DateTime JoinedDate { get; set; }
-    public IList<Recipe> Recipes { get; set; }
-    public IList<Post> Posts { get; set; }
 }

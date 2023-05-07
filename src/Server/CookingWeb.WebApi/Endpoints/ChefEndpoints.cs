@@ -20,12 +20,12 @@ namespace CookingWeb.WebApi.Endpoints
 
             routeGroupBuilder.MapGet("/", GetAllChefs)
                 .WithName("GetAllChefs")
-                .Produces<ApiResponse<PaginationResult<ChefItem>>>();
-            routeGroupBuilder.MapDelete("/{id:int}", AddChefs)
-               .WithName("AddNewChef")
-               .Produces<ApiResponse<PaginationResult<ChefItem>>>();
-            routeGroupBuilder.MapDelete("/{id:int}", UpdateChefs)
-               .WithName("UpdateAnChef")
+            //    .Produces<ApiResponse<PaginationResult<ChefItem>>>();
+            //routeGroupBuilder.MapDelete("/{id:int}", AddChefs)
+            //   .WithName("AddNewChef")
+            //   .Produces<ApiResponse<PaginationResult<ChefItem>>>();
+            //routeGroupBuilder.MapDelete("/{id:int}", UpdateChefs)
+            //   .WithName("UpdateAnChef")
                .Produces<ApiResponse<PaginationResult<ChefItem>>>();
             routeGroupBuilder.MapDelete("/{id:int}", DeleteChefs)
                 .WithName("DeleteAnChef")
@@ -35,7 +35,7 @@ namespace CookingWeb.WebApi.Endpoints
         }
 
         private static async Task<IResult> GetAllChefs(
-            [FromServices] IChefRepository chefRepository)
+           IChefRepository chefRepository)
         {
             var chefs = await chefRepository.GetChefsAsync();
             return Results.Ok(ApiResponse.Success(chefs));
@@ -59,53 +59,54 @@ namespace CookingWeb.WebApi.Endpoints
         //    return Results.Ok(paginationResult);
         //}
         //Them dau bep
-        private static async Task<IResult> AddChefs(
-            IMapper mapper,
-            IValidator<ChefEditModel> validator,
-            ChefEditModel model,
-            IChefRepository chefRepository)
-        {
-            var validationResult = await validator.ValidateAsync(model);
-            if (!validationResult.IsValid)
-            {
-                return Results.BadRequest(
-                    validationResult.Errors.ToResponse());
-            }  
-            if (await chefRepository.IsChefSlugExistedAsync(0,model.UrlSlug))
-            {
-                return Results.Conflict($"Slug '{model.UrlSlug}' đã được sửa dụng");
-            }
-            var chefs = mapper.Map<Chef>(model);
-            await chefRepository.AddOrUpdateChefAsync(chefs);
+        //private static async Task<IResult> AddChefs(
+        //    IMapper mapper,
+        //    IValidator<ChefEditModel> validator,
+        //    ChefEditModel model,
+        //    IChefRepository chefRepository)
+        //{
+        //    var validationResult = await validator.ValidateAsync(model);
+        //    if (!validationResult.IsValid)
+        //    {
+        //        return Results.BadRequest(
+        //            validationResult.Errors.ToResponse());
+        //    }  
+        //    if (await chefRepository.IsChefSlugExistedAsync(0,model.UrlSlug))
+        //    {
+        //        return Results.Conflict($"Slug '{model.UrlSlug}' đã được sửa dụng");
+        //    }
+        //    var chefs = mapper.Map<Chef>(model);
+        //    await chefRepository.AddOrUpdateChefAsync(chefs);
 
-            return Results.CreatedAtRoute(
-                "GetChefById", new {chefs.Id},
-                mapper.Map<ChefItem>(chefs));
-        }
-        //Them dau bep
-        private static async Task<IResult> UpdateChefs(
-            int id,ChefEditModel model,
-            IValidator<ChefEditModel> validator,
-            IMapper mapper,
-            IChefRepository chefRepository)
-        {
-            var validationResult = await validator.ValidateAsync(model);
-            if (!validationResult.IsValid)
-            {
-                return Results.BadRequest(
-                    validationResult.Errors.ToResponse());
-            }
-            if (await chefRepository.IsChefSlugExistedAsync(id, model.UrlSlug))
-            {
-                return Results.Conflict($"Slug '{model.UrlSlug}' da duoc su dung");
-            }
-           var chefs = mapper.Map<Chef>(model);
-            chefs.Id = id;
+        //    return Results.CreatedAtRoute(
+        //        "GetChefById", new {chefs.Id},
+        //        mapper.Map<ChefItem>(chefs));
+        //}
+        ////Them dau bep
+        //private static async Task<IResult> UpdateChefs(
+        //    int id,
+        //    ChefEditModel model,
+        //    IValidator<ChefEditModel> validator,
+        //    IMapper mapper,
+        //    IChefRepository chefRepository)
+        //{
+        //    var validationResult = await validator.ValidateAsync(model);
+        //    if (!validationResult.IsValid)
+        //    {
+        //        return Results.BadRequest(
+        //            validationResult.Errors.ToResponse());
+        //    }
+        //    if (await chefRepository.IsChefSlugExistedAsync(id, model.UrlSlug))
+        //    {
+        //        return Results.Conflict($"Slug '{model.UrlSlug}' da duoc su dung");
+        //    }
+        //   var chefs = mapper.Map<Chef>(model);
+        //    chefs.Id = id;
 
-            return await chefRepository.AddOrUpdateChefAsync(chefs)
-                ? Results.NoContent()
-                : Results.NotFound();
-        }
+        //    return await chefRepository.AddOrUpdateChefAsync(chefs)
+        //        ? Results.NoContent()
+        //        : Results.NotFound();
+        //}
         //Xoa dau bep
         private static async Task<IResult> DeleteChefs(
             int id, IChefRepository chefRepository)

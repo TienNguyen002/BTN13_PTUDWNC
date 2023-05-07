@@ -11,6 +11,5 @@ namespace CookingWeb.WebApi.Models.Student
         public string UrlSlug { get; set; }
         public DateTime RegisterDate { get; set; }
         public string Notes { get; set; }
-        public IList<Course> Courses { get; set; }
     }
 }
