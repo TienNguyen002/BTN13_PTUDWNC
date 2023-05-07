@@ -1,0 +1,30 @@
+.recipe-content{
+    &-container{
+        display: flex;
+        align-items: center;
+        justify-content: center
+    }
+    &-title{
+        color: red;
+    }
+    &-description{
+        padding-top: 20px;
+    }
+    &-ingredient{
+        &-title{
+            color:green;
+        }
+    }
+    &-step{
+        &-title{
+            color:green;
+        }
+    }
+    &-author{
+        padding-top: 30px;
+    }
+}
+
+.color{
+    color: green;
+}

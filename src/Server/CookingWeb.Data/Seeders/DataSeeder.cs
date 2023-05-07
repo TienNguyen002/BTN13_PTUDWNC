@@ -48,6 +48,20 @@ namespace CookingWeb.Data.Seeders
                     UrlSlug = "makiro-nata",
                     JoinedDate = new DateTime(2017, 07, 18)
                 },
+                new()
+                {
+                    FullName = "Akari",
+                    Description = "Từ nhỏ, tôi thường vào phụ mỗi khi Mẹ nấu ăn. Tôi thích những món ăn mà Mẹ tôi nấu, vì trong đó có tuổi thơ, có tình yêu thương mà Mẹ dành cho tôi. Lớn lên tôi mang cái tâm để đi theo Nghề Bếp.",
+                    UrlSlug = "akari",
+                    JoinedDate = new DateTime(2017, 07, 18)
+                },
+                new()
+                {
+                    FullName = "Kiều Văn Mỹ",
+                    Description = "Từ nhỏ, tôi thường vào phụ mỗi khi Mẹ nấu ăn. Tôi thích những món ăn mà Mẹ tôi nấu, vì trong đó có tuổi thơ, có tình yêu thương mà Mẹ dành cho tôi. Lớn lên tôi mang cái tâm để đi theo Nghề Bếp.",
+                    UrlSlug = "kieu-van-my",
+                    JoinedDate = new DateTime(2017, 07, 18)
+                },
             };
             var authorAdd = new List<Author>();
             foreach(var author in authors)
@@ -235,6 +249,20 @@ namespace CookingWeb.Data.Seeders
                     Description = "Bếp trưởng Kubara Japanese Cuisine",
                     JoinedDate = new DateTime(2017, 07, 18),
                     UrlSlug = "huynh-cong-tao",
+                },
+                new()
+                {
+                    FullName = "Thầy Nguyễn Minh Trí",
+                    Description = "Bếp trưởng Kubara Japanese Cuisine",
+                    JoinedDate = new DateTime(2017, 07, 18),
+                    UrlSlug = "nguyen-minh-tri",
+                },
+                new()
+                {
+                    FullName = "Thầy Lê Đức Anh",
+                    Description = "Bếp trưởng Kubara Japanese Cuisine",
+                    JoinedDate = new DateTime(2017, 07, 18),
+                    UrlSlug = "le-duc-anh",
                 }
             };
             var chefAdd = new List<Chef>();
@@ -416,7 +444,52 @@ namespace CookingWeb.Data.Seeders
                     NumberOfSessions = numberOfSessions[1],
                     Published = true,
                     Chef = chefs[0]
-                }
+                },
+                new()
+                {
+                    Title = "Học nấu món Âu",
+                    ShortDescription = "Các món ăn châu Á hấp dẫn du khách khắp thế giới với các nguyên liệu tươi ngon, tinh khiết cùng cách chế biến tinh tế giữ lại hương vị thuần túy nhất của thực phẩm. Nhận thấy được tiềm năng phát triển mạnh mẽ của ẩm thực châu Á, Nghề Bếp Á Âu xây dựng và thiết kếchương trình học nấu món Á chuyên biệt dành cho các đối tượng có niềm đam mê nấu ăn hàng ngày hoặc muốn phát triển nghề nghiệp lâu dài trong lĩnh vực bếp Á.\r\n\r\nThị trường ẩm thực Việt những năm gần đây đánh dấu sự bùng nổ của các nhà hàng, quán ăn chuyên món Á. Các món lẩu nướng Hàn, sushi Nhật, cà-ri Ấn Độ, dimsum Hongkong… luôn nằm trong danh sách những món ăn được yêu thích nhất của giới trẻ. Tuy nhiên, số lượng đầu bếp và nhà hàng chuyên món Á chất lượng dường như chưa đáp ứng đủ nhu cầu của thị trường. Do đó, các khóa học nấu món Á của chúng tôi ra đời với tiêu chí đào tạo nên những đầu bếp món Á chuyên nghiệp, có khả năng tạo ra những món ăn ngon chuẩn vị và tự tin làm chủ những nhà hàng món Á đắt khách.",
+                    Description = "Tham gia vào chương trình dạy nấu món Á của Nghề Bếp Á Âu (NBAAu), học viên được cung cấp tổng quan và chi tiết kiến thức về các nền ẩm thực đặc sắc thuộc khu vực châu Á như Việt, Hoa, Nhật, Hàn, Ấn Độ và Singapore; được học tất cả kỹ năng cần thiết từ khâu lựa chọn, sơ chế, bảo quản nguyên liệu cho đến cách chế biến món ăn, nêm nếm chuẩn vị, kỹ năng trang trí và trình bày món ăn sao cho bắt mắt, hấp dẫn người dùng. Đặc biệt, nội dung học chuyên sâu vào kỹ thuật chế biến các món Á trứ danh và đặc trưng của mỗi nền ẩm thực.\r\n\r\nNội dung khóa học được xây dựng bài bản, đặc biệt chú trọng vào yếu tố thực hành (chiếm đến 90%) và liên tục đổi mới theo xu hướng ẩm thực thế giới; đội ngũ giảng viên giàu kinh nghiệm, không giấu nghề; thời gian học linh động, đa dạng về hình thức đào tạo: lớp chuyên đề, lớp yêu cầu, lớp học nấu ăn chuyên nghiệp đáp ứng mọi sở thích, nhu cầu và điều kiện của nhiều đối tượng học viên khác nhau. Tham gia các lớp học nấu ăn mở quán, học vì đam mê hay học để trở thành đầu bếp món Á chuyên nghiệp? Mọi nhu cầu của bạn đều được thỏa mãn với các khóa học phù hợp.",
+                    UrlSlug = "hoc-nau-mon-au",
+                    CreateDate = new DateTime(2017, 1, 1),
+                    UpdateDate = null,
+                    Demand = demands[1],
+                    Price = prices[1],
+                    NumberOfSessions = numberOfSessions[1],
+                    RegisterCount = 20,
+                    Published = true,
+                    Chef = chefs[0]
+                },
+                new()
+                {
+                    Title = "Học nấu món Nhật",
+                    ShortDescription = "Các món ăn châu Á hấp dẫn du khách khắp thế giới với các nguyên liệu tươi ngon, tinh khiết cùng cách chế biến tinh tế giữ lại hương vị thuần túy nhất của thực phẩm. Nhận thấy được tiềm năng phát triển mạnh mẽ của ẩm thực châu Á, Nghề Bếp Á Âu xây dựng và thiết kếchương trình học nấu món Á chuyên biệt dành cho các đối tượng có niềm đam mê nấu ăn hàng ngày hoặc muốn phát triển nghề nghiệp lâu dài trong lĩnh vực bếp Á.\r\n\r\nThị trường ẩm thực Việt những năm gần đây đánh dấu sự bùng nổ của các nhà hàng, quán ăn chuyên món Á. Các món lẩu nướng Hàn, sushi Nhật, cà-ri Ấn Độ, dimsum Hongkong… luôn nằm trong danh sách những món ăn được yêu thích nhất của giới trẻ. Tuy nhiên, số lượng đầu bếp và nhà hàng chuyên món Á chất lượng dường như chưa đáp ứng đủ nhu cầu của thị trường. Do đó, các khóa học nấu món Á của chúng tôi ra đời với tiêu chí đào tạo nên những đầu bếp món Á chuyên nghiệp, có khả năng tạo ra những món ăn ngon chuẩn vị và tự tin làm chủ những nhà hàng món Á đắt khách.",
+                    Description = "Tham gia vào chương trình dạy nấu món Á của Nghề Bếp Á Âu (NBAAu), học viên được cung cấp tổng quan và chi tiết kiến thức về các nền ẩm thực đặc sắc thuộc khu vực châu Á như Việt, Hoa, Nhật, Hàn, Ấn Độ và Singapore; được học tất cả kỹ năng cần thiết từ khâu lựa chọn, sơ chế, bảo quản nguyên liệu cho đến cách chế biến món ăn, nêm nếm chuẩn vị, kỹ năng trang trí và trình bày món ăn sao cho bắt mắt, hấp dẫn người dùng. Đặc biệt, nội dung học chuyên sâu vào kỹ thuật chế biến các món Á trứ danh và đặc trưng của mỗi nền ẩm thực.\r\n\r\nNội dung khóa học được xây dựng bài bản, đặc biệt chú trọng vào yếu tố thực hành (chiếm đến 90%) và liên tục đổi mới theo xu hướng ẩm thực thế giới; đội ngũ giảng viên giàu kinh nghiệm, không giấu nghề; thời gian học linh động, đa dạng về hình thức đào tạo: lớp chuyên đề, lớp yêu cầu, lớp học nấu ăn chuyên nghiệp đáp ứng mọi sở thích, nhu cầu và điều kiện của nhiều đối tượng học viên khác nhau. Tham gia các lớp học nấu ăn mở quán, học vì đam mê hay học để trở thành đầu bếp món Á chuyên nghiệp? Mọi nhu cầu của bạn đều được thỏa mãn với các khóa học phù hợp.",
+                    UrlSlug = "hoc-nau-mon-nhat",
+                    CreateDate = new DateTime(2017, 1, 1),
+                    UpdateDate = null,
+                    Demand = demands[1],
+                    Price = prices[1],
+                    NumberOfSessions = numberOfSessions[1],
+                    RegisterCount = 25,
+                    Published = true,
+                    Chef = chefs[0]
+                },
+                new()
+                {
+                    Title = "Học nấu món Hoa",
+                    ShortDescription = "Các món ăn châu Á hấp dẫn du khách khắp thế giới với các nguyên liệu tươi ngon, tinh khiết cùng cách chế biến tinh tế giữ lại hương vị thuần túy nhất của thực phẩm. Nhận thấy được tiềm năng phát triển mạnh mẽ của ẩm thực châu Á, Nghề Bếp Á Âu xây dựng và thiết kếchương trình học nấu món Á chuyên biệt dành cho các đối tượng có niềm đam mê nấu ăn hàng ngày hoặc muốn phát triển nghề nghiệp lâu dài trong lĩnh vực bếp Á.\r\n\r\nThị trường ẩm thực Việt những năm gần đây đánh dấu sự bùng nổ của các nhà hàng, quán ăn chuyên món Á. Các món lẩu nướng Hàn, sushi Nhật, cà-ri Ấn Độ, dimsum Hongkong… luôn nằm trong danh sách những món ăn được yêu thích nhất của giới trẻ. Tuy nhiên, số lượng đầu bếp và nhà hàng chuyên món Á chất lượng dường như chưa đáp ứng đủ nhu cầu của thị trường. Do đó, các khóa học nấu món Á của chúng tôi ra đời với tiêu chí đào tạo nên những đầu bếp món Á chuyên nghiệp, có khả năng tạo ra những món ăn ngon chuẩn vị và tự tin làm chủ những nhà hàng món Á đắt khách.",
+                    Description = "Tham gia vào chương trình dạy nấu món Á của Nghề Bếp Á Âu (NBAAu), học viên được cung cấp tổng quan và chi tiết kiến thức về các nền ẩm thực đặc sắc thuộc khu vực châu Á như Việt, Hoa, Nhật, Hàn, Ấn Độ và Singapore; được học tất cả kỹ năng cần thiết từ khâu lựa chọn, sơ chế, bảo quản nguyên liệu cho đến cách chế biến món ăn, nêm nếm chuẩn vị, kỹ năng trang trí và trình bày món ăn sao cho bắt mắt, hấp dẫn người dùng. Đặc biệt, nội dung học chuyên sâu vào kỹ thuật chế biến các món Á trứ danh và đặc trưng của mỗi nền ẩm thực.\r\n\r\nNội dung khóa học được xây dựng bài bản, đặc biệt chú trọng vào yếu tố thực hành (chiếm đến 90%) và liên tục đổi mới theo xu hướng ẩm thực thế giới; đội ngũ giảng viên giàu kinh nghiệm, không giấu nghề; thời gian học linh động, đa dạng về hình thức đào tạo: lớp chuyên đề, lớp yêu cầu, lớp học nấu ăn chuyên nghiệp đáp ứng mọi sở thích, nhu cầu và điều kiện của nhiều đối tượng học viên khác nhau. Tham gia các lớp học nấu ăn mở quán, học vì đam mê hay học để trở thành đầu bếp món Á chuyên nghiệp? Mọi nhu cầu của bạn đều được thỏa mãn với các khóa học phù hợp.",
+                    UrlSlug = "hoc-nau-mon-hoa",
+                    CreateDate = new DateTime(2017, 1, 1),
+                    UpdateDate = null,
+                    Demand = demands[1],
+                    Price = prices[1],
+                    NumberOfSessions = numberOfSessions[1],
+                    RegisterCount = 15,
+                    Published = true,
+                    Chef = chefs[0]
+                },
             };
             var courseAdd = new List<Course>();
             foreach(var course in courses)
@@ -440,7 +513,7 @@ namespace CookingWeb.Data.Seeders
                 new()
                 {
                     Title = "Xôi xoài Thái Lan",
-                    ShortDesciption = "Nếu là tín đồ của ẩm thực Thái Lan, bạn đừng vội bỏ qua cách nấu xôi xoài thơm ngon, chuẩn vị từ hướng dẫn của Nghề Bếp Á Âu. Được biết đến là một món ăn đường phố, xôi xoài cuốn hút thực khách bốn phương nhờ hương vị dẻo thơm của nếp kết hợp cùng xoài tươi ngọt mát và đặc biệt là nước dừa béo ngậy.",
+                    ShortDescription = "Nếu là tín đồ của ẩm thực Thái Lan, bạn đừng vội bỏ qua cách nấu xôi xoài thơm ngon, chuẩn vị từ hướng dẫn của Nghề Bếp Á Âu. Được biết đến là một món ăn đường phố, xôi xoài cuốn hút thực khách bốn phương nhờ hương vị dẻo thơm của nếp kết hợp cùng xoài tươi ngọt mát và đặc biệt là nước dừa béo ngậy.",
                     Description = "Ẩm thực của người Thái Lan luôn khiến chúng ta bất ngờ và ngạc nhiên không chỉ bởi sự thơm ngon hấp dẫn mà còn rất độc đáo, lạ miệng. Xôi xoài là một trong những món ăn đường phố nổi tiếng của người Thái với cách chế biến khá đơn giản. Cơm nếp tưới nước cốt dừa đặt bên cạnh vài miếng xoài tươi là bạn có ngay món xôi đặc sản ngọt thơm, béo ngậy nổi tiếng của xứ chùa vàng. Hôm nay, hãy cùng Nghề Bếp Á Âu xắn tay áo lên và trổ tài làm bếp với món xôi xoài kiểu Thái siêu độc đáo này.",
                     Metadata = "Ẩm thực của người Thái Lan luôn khiến chúng ta bất ngờ và ngạc nhiên không chỉ bởi sự thơm ngon hấp dẫn mà còn rất độc đáo, lạ miệng. Xôi xoài là một trong những món ăn đường phố nổi tiếng của người Thái với cách chế biến khá đơn giản. Cơm nếp tưới nước cốt dừa đặt bên cạnh vài miếng xoài tươi là bạn có ngay món xôi đặc sản ngọt thơm, béo ngậy nổi tiếng của xứ chùa vàng. Hôm nay, hãy cùng Nghề Bếp Á Âu xắn tay áo lên và trổ tài làm bếp với món xôi xoài kiểu Thái siêu độc đáo này.",
                     UrlSlug = "xoi-xoai-thai-lan",
@@ -452,7 +525,37 @@ namespace CookingWeb.Data.Seeders
                     Author = authors[0],
                     Course = courses[0],
                     ViewCount = 1,
-                }
+                },new()
+                {
+                    Title = "Bún riêu",
+                    ShortDescription = "Nếu là tín đồ của ẩm thực Thái Lan, bạn đừng vội bỏ qua cách nấu xôi xoài thơm ngon, chuẩn vị từ hướng dẫn của Nghề Bếp Á Âu. Được biết đến là một món ăn đường phố, xôi xoài cuốn hút thực khách bốn phương nhờ hương vị dẻo thơm của nếp kết hợp cùng xoài tươi ngọt mát và đặc biệt là nước dừa béo ngậy.",
+                    Description = "Ẩm thực của người Thái Lan luôn khiến chúng ta bất ngờ và ngạc nhiên không chỉ bởi sự thơm ngon hấp dẫn mà còn rất độc đáo, lạ miệng. Xôi xoài là một trong những món ăn đường phố nổi tiếng của người Thái với cách chế biến khá đơn giản. Cơm nếp tưới nước cốt dừa đặt bên cạnh vài miếng xoài tươi là bạn có ngay món xôi đặc sản ngọt thơm, béo ngậy nổi tiếng của xứ chùa vàng. Hôm nay, hãy cùng Nghề Bếp Á Âu xắn tay áo lên và trổ tài làm bếp với món xôi xoài kiểu Thái siêu độc đáo này.",
+                    Metadata = "Ẩm thực của người Thái Lan luôn khiến chúng ta bất ngờ và ngạc nhiên không chỉ bởi sự thơm ngon hấp dẫn mà còn rất độc đáo, lạ miệng. Xôi xoài là một trong những món ăn đường phố nổi tiếng của người Thái với cách chế biến khá đơn giản. Cơm nếp tưới nước cốt dừa đặt bên cạnh vài miếng xoài tươi là bạn có ngay món xôi đặc sản ngọt thơm, béo ngậy nổi tiếng của xứ chùa vàng. Hôm nay, hãy cùng Nghề Bếp Á Âu xắn tay áo lên và trổ tài làm bếp với món xôi xoài kiểu Thái siêu độc đáo này.",
+                    UrlSlug = "bun-rieu",
+                    Ingredient = "250g gạo nếp\n1 quả xoài chín\n200ml nước cốt dừa\n20g đậu phộng rang đập dập\n2 muỗng canh mè rang\n1/3 muỗng cà phê muối\n60g đường\n1 muỗng cà phê bột năng\n20g dừa tươi bào sợi",
+                    Step = "Bước 1: Hấp xôi\r\nGạo nếp mang đi vo sạch, sau đó ngâm qua đêm, rửa lại thêm 1 lần nữa cho sạch, để ráo. Tiếp theo, bạn trộn đều vào gạo nếp 1/3 muỗng cà phê muối.\nBắc xửng hấp lên bếp đun với lửa lớn cho nước sôi rồi cho gạo nếp vào hấp chín, thời gian hấp là khoảng 15 phút.\r\n\r\nGạo nếp sau khi hấp khoảng 15 phút, bạn giở nắp cho 50ml nước cốt dừa và 30gr đường vào trộn đều lên và tiếp tục hấp trong 10 phút nữa.\r\n\r\n",
+                    CreateDate = new DateTime(2020, 12, 1),
+                    UpdateDate = null,
+                    Published = true,
+                    Author = authors[0],
+                    Course = courses[0],
+                    ViewCount = 50,
+                },new()
+                {
+                    Title = "Hủ tiếu",
+                    ShortDescription = "Nếu là tín đồ của ẩm thực Thái Lan, bạn đừng vội bỏ qua cách nấu xôi xoài thơm ngon, chuẩn vị từ hướng dẫn của Nghề Bếp Á Âu. Được biết đến là một món ăn đường phố, xôi xoài cuốn hút thực khách bốn phương nhờ hương vị dẻo thơm của nếp kết hợp cùng xoài tươi ngọt mát và đặc biệt là nước dừa béo ngậy.",
+                    Description = "Ẩm thực của người Thái Lan luôn khiến chúng ta bất ngờ và ngạc nhiên không chỉ bởi sự thơm ngon hấp dẫn mà còn rất độc đáo, lạ miệng. Xôi xoài là một trong những món ăn đường phố nổi tiếng của người Thái với cách chế biến khá đơn giản. Cơm nếp tưới nước cốt dừa đặt bên cạnh vài miếng xoài tươi là bạn có ngay món xôi đặc sản ngọt thơm, béo ngậy nổi tiếng của xứ chùa vàng. Hôm nay, hãy cùng Nghề Bếp Á Âu xắn tay áo lên và trổ tài làm bếp với món xôi xoài kiểu Thái siêu độc đáo này.",
+                    Metadata = "Ẩm thực của người Thái Lan luôn khiến chúng ta bất ngờ và ngạc nhiên không chỉ bởi sự thơm ngon hấp dẫn mà còn rất độc đáo, lạ miệng. Xôi xoài là một trong những món ăn đường phố nổi tiếng của người Thái với cách chế biến khá đơn giản. Cơm nếp tưới nước cốt dừa đặt bên cạnh vài miếng xoài tươi là bạn có ngay món xôi đặc sản ngọt thơm, béo ngậy nổi tiếng của xứ chùa vàng. Hôm nay, hãy cùng Nghề Bếp Á Âu xắn tay áo lên và trổ tài làm bếp với món xôi xoài kiểu Thái siêu độc đáo này.",
+                    UrlSlug = "hu-tieu",
+                    Ingredient = "250g gạo nếp\n1 quả xoài chín\n200ml nước cốt dừa\n20g đậu phộng rang đập dập\n2 muỗng canh mè rang\n1/3 muỗng cà phê muối\n60g đường\n1 muỗng cà phê bột năng\n20g dừa tươi bào sợi",
+                    Step = "Bước 1: Hấp xôi\r\nGạo nếp mang đi vo sạch, sau đó ngâm qua đêm, rửa lại thêm 1 lần nữa cho sạch, để ráo. Tiếp theo, bạn trộn đều vào gạo nếp 1/3 muỗng cà phê muối.\nBắc xửng hấp lên bếp đun với lửa lớn cho nước sôi rồi cho gạo nếp vào hấp chín, thời gian hấp là khoảng 15 phút.\r\n\r\nGạo nếp sau khi hấp khoảng 15 phút, bạn giở nắp cho 50ml nước cốt dừa và 30gr đường vào trộn đều lên và tiếp tục hấp trong 10 phút nữa.\r\n\r\n",
+                    CreateDate = new DateTime(2020, 12, 1),
+                    UpdateDate = null,
+                    Published = true,
+                    Author = authors[0],
+                    Course = courses[0],
+                    ViewCount = 30,
+                },
             };
             var recipeAdd = new List<Recipe>();
             foreach (var recipe in recipes)
@@ -479,6 +582,32 @@ namespace CookingWeb.Data.Seeders
                     ShortDescription = "Tổng hợp thực đơn giảm cân cho nữ theo ngày dưới đây sẽ giúp bạn có được vóc dáng thon gọn như mong muốn để tự tin diện những bộ cánh thật đẹp. Hiện nay, có rất nhiều thực đơn giảm cân nhưng để lựa chọn một chế độ phù hợp với cơ thể, an toàn, hiệu quả lại không dễ dàng.",
                     Description = "Vậy làm sao để có thể có một thực đơn giảm cân khoa học lại hiệu quả, hãy cùng Nghề Bếp Á Âu tham khảo thực đơn giảm cân tăng cơ 7 ngày cho nữ dưới đây ngay nhé!",
                     UrlSlug = "thuc-don-giam-can-cho-nu",
+                    Metadata = "Vậy làm sao để có thể có một thực đơn giảm cân khoa học lại hiệu quả, hãy cùng Nghề Bếp Á Âu tham khảo thực đơn giảm cân tăng cơ 7 ngày cho nữ dưới đây ngay nhé!",
+                    CreateDate = new DateTime(2020,10 ,31),
+                    UpdateDate = null,
+                    Published = true,
+                    Author = authors[0],
+                    Category = categories[0],
+                },
+                new()
+                {
+                    Title = "Chế Độ Ăn Cho Người Tập Gym Nữ Để Tăng Cân",
+                    ShortDescription = "Tổng hợp thực đơn giảm cân cho nữ theo ngày dưới đây sẽ giúp bạn có được vóc dáng thon gọn như mong muốn để tự tin diện những bộ cánh thật đẹp. Hiện nay, có rất nhiều thực đơn giảm cân nhưng để lựa chọn một chế độ phù hợp với cơ thể, an toàn, hiệu quả lại không dễ dàng.",
+                    Description = "Vậy làm sao để có thể có một thực đơn giảm cân khoa học lại hiệu quả, hãy cùng Nghề Bếp Á Âu tham khảo thực đơn giảm cân tăng cơ 7 ngày cho nữ dưới đây ngay nhé!",
+                    UrlSlug = "nu-tap-gym",
+                    Metadata = "Vậy làm sao để có thể có một thực đơn giảm cân khoa học lại hiệu quả, hãy cùng Nghề Bếp Á Âu tham khảo thực đơn giảm cân tăng cơ 7 ngày cho nữ dưới đây ngay nhé!",
+                    CreateDate = new DateTime(2020,10 ,31),
+                    UpdateDate = null,
+                    Published = true,
+                    Author = authors[0],
+                    Category = categories[0],
+                },
+                new()
+                {
+                    Title = "Thực Đơn Ăn Chay Cho Người Tập Gym",
+                    ShortDescription = "Tổng hợp thực đơn giảm cân cho nữ theo ngày dưới đây sẽ giúp bạn có được vóc dáng thon gọn như mong muốn để tự tin diện những bộ cánh thật đẹp. Hiện nay, có rất nhiều thực đơn giảm cân nhưng để lựa chọn một chế độ phù hợp với cơ thể, an toàn, hiệu quả lại không dễ dàng.",
+                    Description = "Vậy làm sao để có thể có một thực đơn giảm cân khoa học lại hiệu quả, hãy cùng Nghề Bếp Á Âu tham khảo thực đơn giảm cân tăng cơ 7 ngày cho nữ dưới đây ngay nhé!",
+                    UrlSlug = "an-chay-tap-gym",
                     Metadata = "Vậy làm sao để có thể có một thực đơn giảm cân khoa học lại hiệu quả, hãy cùng Nghề Bếp Á Âu tham khảo thực đơn giảm cân tăng cơ 7 ngày cho nữ dưới đây ngay nhé!",
                     CreateDate = new DateTime(2020,10 ,31),
                     UpdateDate = null,
