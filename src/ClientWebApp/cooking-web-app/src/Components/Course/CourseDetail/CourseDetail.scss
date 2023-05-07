@@ -1,0 +1,23 @@
+.course-content{
+    &-container{
+        display: flex;
+        align-items: center;
+        justify-content: center
+    }
+    &-chef{
+        color: green;
+    }
+    &-shortDescription{
+        padding-left: 20px;
+    }
+    &-title{
+        color: red;
+    }
+    &-img{
+        max-width: 2000px;
+        max-height: 2000px;
+    }
+    &-description{
+        padding-top: 20px;
+    }
+}

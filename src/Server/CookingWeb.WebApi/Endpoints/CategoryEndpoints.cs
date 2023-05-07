@@ -3,21 +3,19 @@ using CookingWeb.Core.DTO.Category;
 using CookingWeb.Services.Apps.Categories;
 using CookingWeb.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using Carter;
 
 namespace CookingWeb.WebApi.Endpoints
 {
-    public static class CategoryEndpoints
+    public class CategoryEndpoints : ICarterModule
     {
-        public static WebApplication MapCategoryEndpoints(
-            this WebApplication app)
+        public void AddRoutes(IEndpointRouteBuilder app)
         {
             var routeGroupBuilder = app.MapGroup("/api/categories");
 
             routeGroupBuilder.MapGet("/", GetAllCategories)
                 .WithName("GetAllCategories")
                 .Produces<ApiResponse<PaginationResult<CategoryItem>>>();
-
-            return app;
         }
 
         private static async Task<IResult> GetAllCategories(

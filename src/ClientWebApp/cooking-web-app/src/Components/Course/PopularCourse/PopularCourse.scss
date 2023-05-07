@@ -1,0 +1,15 @@
+.course-header{
+    background-color: lightgray;
+    &-title{
+        color: red;
+    }
+    &-item{
+        background-color: lightgray;
+        text-decoration: none;
+        &-title{
+            text-decoration: none;
+            text-align: center;
+            color: rgb(22, 134, 22);
+        }
+    }
+}

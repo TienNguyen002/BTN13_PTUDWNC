@@ -36,11 +36,22 @@ namespace CookingWeb.Services.Apps.Categories
                     Name = c.Name,
                     Description = c.Description,
                     UrlSlug = c.UrlSlug,
-                    Topic = c.Topic,
                     ShowOnMenu = c.ShowOnMenu,
                     PostCount = c.Posts.Count()
                 })
                 .ToListAsync(cancellationToken);
+        }
+
+        public async Task<Category> GetCategoryById(int id, bool includeDetails = false, CancellationToken cancellationToken = default)
+        {
+            if (!includeDetails)
+            {
+                return await _context.Set<Category>().FindAsync(id);
+            }
+            return await _context.Set<Category>()
+                .Include(c => c.Topic)
+                .Where(c => c.Id == id)
+                .FirstOrDefaultAsync(cancellationToken);
         }
     }
 }
