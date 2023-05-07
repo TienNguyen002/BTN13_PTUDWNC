@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using NLog.Web;
 using CookingWeb.Data.Contexts;
 using CookingWeb.Services.Apps;
 using CookingWeb.Services.Media;
 using CookingWeb.Services.Timing;
 using CookingWeb.Data.Seeders;
+using CookingWeb.Services.Apps.Chefs;
 using CookingWeb.Services.Apps.Categories;
 using CookingWeb.Services.Apps.Courses;
 using CookingWeb.Services.Apps.Other;
@@ -30,6 +31,7 @@ namespace TatBlog.WebApi.Extensions
             builder.Services.AddScoped<IMediaManager, LocalFileSystemMediaManager>();
             builder.Services.AddScoped<IDataSeeder, DataSeeder>();
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<IChefRepository, ChefRepository>();
             builder.Services.AddScoped<ICourseRepository, CourseRepository>();
             builder.Services.AddScoped<IAppRepository, AppRepository>();
             builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
