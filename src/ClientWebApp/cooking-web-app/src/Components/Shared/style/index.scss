@@ -1,0 +1,66 @@
+*{
+    margin: 0;
+   padding: 0;
+}
+
+.navbar{
+    background-color: rgb(22, 134, 22);
+    max-height: 70px;
+}
+
+.navitem{
+    font-style: bold;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    margin-right: 20px;
+}
+
+.navitem:hover{
+    color: red;
+}
+
+.button{
+    margin-top: 10px;
+    margin-left: 40%;
+}
+
+.search-bar{
+    margin-right: 20px;
+    margin-top: 20px;
+    text-align: center;
+    .search-button{
+        background-color: darkgreen;
+        color: white;
+    }
+}
+
+.register-course{
+    color: white;
+    padding: 0%;
+    margin: 0%;
+    .background-image{
+        background-image: url("../images/background-food.jpg");
+        height: 400px;
+        width: 100%;
+        filter: blur(8px);
+        -webkit-filter: blur(8px);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .input-type{
+        padding-left: 250px;
+        padding-top: 10px;
+    }
+    .button-register{
+        padding-left: 520px;
+        padding-top: 10px;
+    }
+}
+
+.more-info{
+    padding-left: 100px;
+    padding-right: 100px;
+    background-color: white;
+}

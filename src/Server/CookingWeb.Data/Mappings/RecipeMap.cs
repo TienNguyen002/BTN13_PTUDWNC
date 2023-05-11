@@ -21,7 +21,7 @@ namespace CookingWeb.Data.Mappings
                 .IsRequired()
                 .HasMaxLength(500);
 
-            builder.Property(r => r.ShortDesciption)
+            builder.Property(r => r.ShortDescription)
                 .IsRequired()
                 .HasMaxLength(5000);
 

@@ -1,0 +1,145 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.register{
+    background-color: gray;
+    padding-bottom: 10px;
+}
+
+.main-contain{
+    background-color: lightgray;
+}
+
+.cooking{
+    background-color: lightgray;
+    padding-left: 50px;
+    padding-right: 50px;
+    .menu{
+        text-decoration: none;
+        color: black;
+    }
+    &-content{
+        background-color: white;
+        &-image{
+            padding-left: 28%;
+        }
+        &-title{
+            color: rgb(22, 134, 22);
+        }
+        
+    }
+    .p-color{
+        color: rgb(22, 134, 22);
+    }
+    &-table{
+        border: 5px solid rgb(22, 134, 22);
+        background-color: white;
+        &-header{
+            border-bottom: 5px solid rgb(22, 134, 22);
+            color: rgb(22, 134, 22);
+        }
+        &-content{
+            padding-left: 20px;
+        }
+    }
+    &-relative{
+        padding-top: 20px;
+        color: rgb(22, 134, 22);
+        text-decoration: underline;
+    }
+}
+
+.table-header{
+    background-color: rgb(37, 25, 211);
+    &-content{
+        color: white;
+    }
+}
+
+.imageClass{
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.food{
+    background-color: lightgray;
+    padding-left: 50px;
+    padding-right: 50px;
+    &-content{
+        background-color: white;
+        &-title{
+            color: rgb(22, 134, 22);
+        }
+    }
+    .p-color{
+        color: red;
+    }
+}
+
+.daily-menu{
+    background-color: lightgray;
+    padding-left: 50px;
+    padding-right: 50px;
+    &-content{
+        background-color: white;
+        &-title{
+            color: rgb(22, 134, 22);
+        }
+    }
+    .p-color{
+        color: red;
+    }
+}
+
+.kitchen-tips{
+    background-color: lightgray;
+    padding-left: 50px;
+    padding-right: 50px;
+    &-content{
+        background-color: white;
+        &-title{
+            color: rgb(22, 134, 22);
+        }
+    }
+    .p-color{
+        color: red;
+    }
+}
+
+.news{
+    background-color: lightgray;
+    padding-left: 50px;
+    padding-right: 50px;
+    &-content{
+        background-color: white;
+        &-title{
+            color: rgb(22, 134, 22);
+        }
+    }
+    .p-color{
+        color: red;
+    }
+}
+
+.about{
+    background-color: gray;
+    &-content{
+        background-color: white;
+        padding-left: 50px;
+        padding-right: 50px;
+        color: black;
+        &-title{
+            color: green;
+        }
+    }
+}
+
+.p-red{
+    color: red;
+}
+
+.p-green{
+    color: green;
+}

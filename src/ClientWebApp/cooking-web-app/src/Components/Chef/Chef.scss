@@ -1,0 +1,17 @@
+.chef{
+    background-color: white;
+    &-item{
+        &-name{
+            text-decoration: none;
+            text-align: center;
+            color: rgb(22, 134, 22);
+        }
+        &-name:hover{
+            color: rgb(22, 134, 22);
+        }
+    }
+}
+
+.title{
+    color: rgb(22, 134, 22);
+}
