@@ -38,14 +38,15 @@ const AdminCourse = () => {
 
     const handleDelete = (e, id) => {
         e.preventDefault();
-        window.location.reload(false);
         DeleteCourse(id);
 
         async function DeleteCourse(id){
             if(window.confirm("Xóa khóa học này?")){
                 const response = await deleteCourse(id);
-                if(response)
+                if(response){
                     alert("Xóa thành công!");
+                    window.location.reload(false);
+                }    
                 else
                     alert("Lỗi!!");
             }

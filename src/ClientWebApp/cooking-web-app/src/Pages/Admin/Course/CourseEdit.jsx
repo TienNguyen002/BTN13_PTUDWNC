@@ -9,6 +9,7 @@ import {
 import { isEmptyOrSpaces, isInteger } from "../../../Utils/Utils"
 import { Button, Form } from "react-bootstrap";
 import { getDemands, getPrices, getSessions} from "../../../Services/Other"
+import { getChefs } from "../../../Services/ChefRepository"
 
 const initialState = {
     title: "",
@@ -57,7 +58,7 @@ const initialState = {
         if (prices) setPrices(prices);
         const numberOfSessions = await getSessions();
         if (numberOfSessions) setNumberOfSessions(numberOfSessions);
-        const chefs = await getSessions();
+        const chefs = await getChefs();
         if (chefs) setChefs(chefs);
       }
     }, []);
@@ -284,7 +285,7 @@ const initialState = {
                 <option value="">-- Chọn đầu bếp --</option>
                 {chefs.map((chef) => (
                   <option key={chef.id} value={chef.id}>
-                    {chef.name}
+                    {chef.fullName}
                   </option>
                 ))}
               </Form.Select>
